@@ -30,13 +30,14 @@ public class Enemy : MonoBehaviour
         if(flg == 1)
         {
             //現在位置を保有
-            Vector3 tmp2 = agent.transform.position;
+            //Vector3 tmp2 = agent.transform.position;
             //ノックバック
-            agent.transform.position = new Vector3(tmp2.x, tmp2.y, tmp2.z);
+            transform.position = transform.forward * 0.1f;
+            //agent.transform.position = new Vector3(tmp2.x, tmp2.y, tmp2.z);
         }
         if(flg == 2)
         {
-            agent.transform.position = tmp;
+            transform.position = tmp;
         }
     }
 
@@ -71,8 +72,8 @@ public class Enemy : MonoBehaviour
         //フラグをfalse
         flg = 2;
         //現在位置を保有
-        tmp = agent.transform.position;
-
+        ////tmp = agent.transform.position;
+        tmp = transform.position;
         StopMotion();
 
     }
