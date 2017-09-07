@@ -4,16 +4,16 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-
     public GameObject target;
-    NavMeshAgent agent;
     public int flg = 0;
     public Vector3 tmp;
+    float knockBackSpeed = 0.5f;
+    Vector3 knockBackDirection = new Vector3(0, 0, 0);
 
     // Use this for initialization
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+
     }
 
     // Update is called once per frame
@@ -24,18 +24,16 @@ public class Enemy : MonoBehaviour
         {
             //プレイヤーに追従する処理
             this.transform.position=Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 1f * Time.deltaTime);
-            //agent.destination = target.transform.position;
         } 
         //衝突したら
         if(flg == 1)
         {
-            //現在位置を保有
-            //Vector3 tmp2 = agent.transform.position;
-            //ノックバック
-            transform.position = transform.forward * 0.1f;
-            //agent.transform.position = new Vector3(tmp2.x, tmp2.y, tmp2.z);
+            //ノックバックさせる
+			transform.position = new Vector3((transform.position.x + (knockBackSpeed * knockBackDirection.x)), (transform.position.y + (knockBackSpeed * knockBackDirection.y)), transform.position.z);
+			Debug.Log (transform.position.z);
+            Debug.Log("ノックバック！");
         }
-        if(flg == 2)
+        if (flg == 2)
         {
             transform.position = tmp;
         }
@@ -47,23 +45,25 @@ public class Enemy : MonoBehaviour
         //tagがplayerなら
         if (other.gameObject.tag == "player")
         {
-            //フラグをtrue
-            flg = 1;
-            //0.5秒後にフラグをfalse
-            Invoke("flgChange",0.5f);
+            // 体当たりしてきた敵とプレイヤーの座標からノックバックする方向を取得する
+            knockBackDirection = (this.transform.position - other.transform.position).normalized;
 
-            //Invoke("StopMotion", 1f);
+            //フラグを1にする
+            flg = 1;
+
+            //0.5秒後にフラグを2にする
+            Invoke("flgChange",0.1f);
         }
     }
-    //ここで少し移動しないモーションを入れる
+
+
+    //待機モーション
     void StopMotion()
     {
-        //現在位置を保有
-        //Vector3 tmp = agent.transform.position;
-        //
-     //   agent.transform.position = tmp;
         Debug.Log("stop!");
-        Invoke("flgChange2",1f);
+
+        //2秒後にflgを0
+        Invoke("flgChange2",2f);
     }
 
     //フラグをfalseにする
@@ -71,9 +71,12 @@ public class Enemy : MonoBehaviour
     {
         //フラグをfalse
         flg = 2;
+
         //現在位置を保有
         ////tmp = agent.transform.position;
         tmp = transform.position;
+
+        //待機モーションをいれる
         StopMotion();
 
     }
