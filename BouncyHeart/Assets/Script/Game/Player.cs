@@ -16,6 +16,9 @@ public class Player : MonoBehaviour {
 	public float fieldLeft;
 	public float fieldRight;
 
+	Vector3 prevPos = new Vector3( 0, 0, 0);
+	float prevRot;
+
 	// Use this for initialization
 	void Start () {
 		// カメラオブジェクトを取得します
@@ -37,6 +40,7 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			shoot ();
 		}
+		checkPlayerRotation ();
 	}
 
 	void moveKeyboard(){
@@ -91,5 +95,23 @@ public class Player : MonoBehaviour {
 	public static void setPlayerHP(int HP){
 		playerHP = HP;
 		Debug.Log (playerHP);
+	}
+
+	void checkPlayerRotation(){
+		float x = this.transform.position.x - prevPos.x;
+		float y = this.transform.position.y - prevPos.y;
+
+		Vector2 vec = new Vector2 (x, y).normalized;
+
+		float rot = Mathf.Atan2 (vec.y, vec.x) * 180 / Mathf.PI;
+
+		if(rot > 180) rot-= 360;
+		if(rot <-180) rot+= 360;
+
+		if (prevRot != rot) {
+			Debug.Log ("Angle = " + rot);
+			prevRot = rot;
+			prevPos = this.transform.position;
+		}
 	}
 }
