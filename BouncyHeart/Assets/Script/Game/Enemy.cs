@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
             //ノックバックさせる
 			float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
 			float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
+			// Field内に移動しているかのチェック
 			if (dx < getField(2)) {
 				dx = getField(2);
 			} else if (dx > getField(1)) {
@@ -63,6 +64,8 @@ public class Enemy : MonoBehaviour
 
             //フラグを1にする
             flg = 1;
+
+			Player.PlayerDamaged (1);
 
             //0.5秒後にフラグを2にする
             Invoke("flgChange",0.1f);

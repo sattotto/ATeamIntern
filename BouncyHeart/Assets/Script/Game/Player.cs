@@ -6,8 +6,8 @@ public class Player : MonoBehaviour {
 	
 	private Camera _mainCamera;
 
-	public int PLAYER_HP_MAX = Const.PLAYER_HP;
-	public int playerHP;
+	public static int PLAYER_HP_MAX = Const.PLAYER_HP;
+	public static int playerHP;
 
 	public GameObject ballPrefab;
 
@@ -72,5 +72,24 @@ public class Player : MonoBehaviour {
 
 	void shoot(){
 		Instantiate (ballPrefab, transform.position, Quaternion.identity);
+	}
+
+	public static void PlayerDamaged(int damage){
+		setPlayerHP (playerHP - damage);
+		if (playerHP <= 0) {
+			// がめおべら
+			Debug.Log ("you died!");
+			GameManager.gameOver = true;
+		}
+	}
+
+	public static void PlayerHealed(int heal) {
+		int setHP = System.Math.Min (PLAYER_HP_MAX, playerHP + heal);
+		setPlayerHP (setHP);
+	}
+
+	public static void setPlayerHP(int HP){
+		playerHP = HP;
+		Debug.Log (playerHP);
 	}
 }
