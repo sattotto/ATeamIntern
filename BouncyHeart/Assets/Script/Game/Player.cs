@@ -11,6 +11,11 @@ public class Player : MonoBehaviour {
 
 	public GameObject ballPrefab;
 
+	public float fieldTop;
+	public float fieldBottom;
+	public float fieldLeft;
+	public float fieldRight;
+
 	// Use this for initialization
 	void Start () {
 		// カメラオブジェクトを取得します
@@ -35,16 +40,16 @@ public class Player : MonoBehaviour {
 	}
 
 	void moveKeyboard(){
-		if (Input.GetKey (KeyCode.LeftArrow) && getScreenTopLeft ().x < transform.position.x) {
+		if (Input.GetKey (KeyCode.LeftArrow) && fieldLeft < transform.position.x) {
 			transform.Translate (-Const.SPEED[GameSpeedButton.speedCount], 0, 0);
 		}
-		if (Input.GetKey (KeyCode.RightArrow) && getScreenBottomRight ().x > transform.position.x) {
+		if (Input.GetKey (KeyCode.RightArrow) && fieldRight > transform.position.x) {
 			transform.Translate ( Const.SPEED[GameSpeedButton.speedCount], 0, 0);
 		}
-		if (Input.GetKey (KeyCode.UpArrow) && getScreenTopLeft ().y > transform.position.y) {
+		if (Input.GetKey (KeyCode.UpArrow) && fieldTop > transform.position.y) {
 			transform.Translate ( 0, Const.SPEED[GameSpeedButton.speedCount], 0);
 		}
-		if (Input.GetKey (KeyCode.DownArrow) && getScreenBottomRight ().y < transform.position.y) {
+		if (Input.GetKey (KeyCode.DownArrow) && fieldBottom < transform.position.y) {
 			transform.Translate ( 0, -Const.SPEED[GameSpeedButton.speedCount], 0);
 		}
 	}
