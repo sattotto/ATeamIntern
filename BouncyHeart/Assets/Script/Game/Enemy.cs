@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
         }
 		// tagがballなら
 		if (other.gameObject.tag == "ball") {
+			Destroy (other.gameObject);
 			EnemyDamaged (1);
 			Debug.Log ("test");
 		}
