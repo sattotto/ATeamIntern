@@ -6,10 +6,18 @@ public class Player : MonoBehaviour {
 	
 	private Camera _mainCamera;
 
-	public int PLAYER_HP_MAX = Const.PLAYER_HP;
-	public int playerHP;
+	public static int PLAYER_HP_MAX = Const.PLAYER_HP;
+	public static int playerHP;
 
 	public GameObject ballPrefab;
+
+	public float fieldTop;
+	public float fieldBottom;
+	public float fieldLeft;
+	public float fieldRight;
+
+	Vector3 prevPos = new Vector3( 0, 0, 0);
+	float prevRot;
 
 	// Use this for initialization
 	void Start () {
@@ -32,19 +40,20 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			shoot ();
 		}
+		checkPlayerRotation ();
 	}
 
 	void moveKeyboard(){
-		if (Input.GetKey (KeyCode.LeftArrow) && getScreenTopLeft ().x < transform.position.x) {
+		if (Input.GetKey (KeyCode.LeftArrow) && fieldLeft < transform.position.x) {
 			transform.Translate (-Const.SPEED[GameSpeedButton.speedCount], 0, 0);
 		}
-		if (Input.GetKey (KeyCode.RightArrow) && getScreenBottomRight ().x > transform.position.x) {
+		if (Input.GetKey (KeyCode.RightArrow) && fieldRight > transform.position.x) {
 			transform.Translate ( Const.SPEED[GameSpeedButton.speedCount], 0, 0);
 		}
-		if (Input.GetKey (KeyCode.UpArrow) && getScreenTopLeft ().y > transform.position.y) {
+		if (Input.GetKey (KeyCode.UpArrow) && fieldTop > transform.position.y) {
 			transform.Translate ( 0, Const.SPEED[GameSpeedButton.speedCount], 0);
 		}
-		if (Input.GetKey (KeyCode.DownArrow) && getScreenBottomRight ().y < transform.position.y) {
+		if (Input.GetKey (KeyCode.DownArrow) && fieldBottom < transform.position.y) {
 			transform.Translate ( 0, -Const.SPEED[GameSpeedButton.speedCount], 0);
 		}
 	}
@@ -67,5 +76,42 @@ public class Player : MonoBehaviour {
 
 	void shoot(){
 		Instantiate (ballPrefab, transform.position, Quaternion.identity);
+	}
+
+	public static void PlayerDamaged(int damage){
+		setPlayerHP (playerHP - damage);
+		if (playerHP <= 0) {
+			// がめおべら
+			Debug.Log ("you died!");
+			GameManager.gameOver = true;
+		}
+	}
+
+	public static void PlayerHealed(int heal) {
+		int setHP = System.Math.Min (PLAYER_HP_MAX, playerHP + heal);
+		setPlayerHP (setHP);
+	}
+
+	public static void setPlayerHP(int HP){
+		playerHP = HP;
+		Debug.Log (playerHP);
+	}
+
+	void checkPlayerRotation(){
+		float x = this.transform.position.x - prevPos.x;
+		float y = this.transform.position.y - prevPos.y;
+
+		Vector2 vec = new Vector2 (x, y).normalized;
+
+		float rot = Mathf.Atan2 (vec.y, vec.x) * 180 / Mathf.PI;
+
+		if(rot > 180) rot-= 360;
+		if(rot <-180) rot+= 360;
+
+		if (prevRot != rot) {
+			Debug.Log ("Angle = " + rot);
+			prevRot = rot;
+			prevPos = this.transform.position;
+		}
 	}
 }
