@@ -29,7 +29,21 @@ public class Enemy : MonoBehaviour
         if(flg == 1)
         {
             //ノックバックさせる
-			transform.position = new Vector3((transform.position.x + (knockBackSpeed * knockBackDirection.x)), (transform.position.y + (knockBackSpeed * knockBackDirection.y)), transform.position.z);
+			float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
+			float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
+			// Field内に移動しているかのチェック
+			if (dx < getField(2)) {
+				dx = getField(2);
+			} else if (dx > getField(1)) {
+				dx = getField(1);
+			}
+			if (dy > getField(0)) {
+				dy = getField(0);
+			} else if (dy < getField(3)) {
+				dy = getField(3);
+			}
+
+			transform.position = new Vector3(dx, dy, transform.position.z);
 			Debug.Log (transform.position.z);
             Debug.Log("ノックバック！");
         }
@@ -50,6 +64,8 @@ public class Enemy : MonoBehaviour
 
             //フラグを1にする
             flg = 1;
+
+			Player.PlayerDamaged (1);
 
             //0.5秒後にフラグを2にする
             Invoke("flgChange",0.1f);
@@ -84,4 +100,19 @@ public class Enemy : MonoBehaviour
     {
         flg = 0;
     }
+
+	float getField (int i){
+		switch(i){
+		case 0: // 画面上
+			return target.GetComponent<Player> ().fieldTop;
+		case 1: // 画面右
+			return target.GetComponent<Player> ().fieldRight;
+		case 2: // 画面左
+			return target.GetComponent<Player> ().fieldLeft;
+		case 3: // 画面下
+			return target.GetComponent<Player> ().fieldBottom;
+		default:
+			return 0;
+		}
+	}
 }
