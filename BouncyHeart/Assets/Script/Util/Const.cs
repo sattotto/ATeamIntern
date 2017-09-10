@@ -8,4 +8,6 @@ public class Const : MonoBehaviour {
 	public static int PLAYER_HP = 5;
 
 	public static int ENEMY_HP = 3;
+
+	public static int SHOOT_NUM = 5;
 }

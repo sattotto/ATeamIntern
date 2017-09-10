@@ -16,6 +16,9 @@ public class Player : MonoBehaviour {
 	public float fieldLeft;
 	public float fieldRight;
 
+	int shootMax;
+	bool isReload = false;
+
 	Vector3 prevPos = new Vector3( 0, 0, 0);
 	float prevRot;
 
@@ -32,12 +35,17 @@ public class Player : MonoBehaviour {
 		PLAYER_HP_MAX = Const.PLAYER_HP;
 		playerHP = PLAYER_HP_MAX;
 
+		shootMax = Const.SHOOT_NUM;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		moveKeyboard ();
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (!isReload) {
+			moveKeyboard ();
+		} else {
+			Invoke("flgChange",1f);
+		}
+		if (Input.GetKeyDown (KeyCode.Space) && !isReload) {
 			shoot ();
 		}
 		checkPlayerRotation ();
@@ -75,6 +83,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void shoot(){
+		shootMax -= 1;
+		if (shootMax == 0) {
+			isReload = true;
+		}
 		Instantiate (ballPrefab, transform.position, Quaternion.identity);
 	}
 
@@ -113,5 +125,11 @@ public class Player : MonoBehaviour {
 			prevRot = rot;
 			prevPos = this.transform.position;
 		}
+	}
+
+	void flgChange (){
+		isReload = false;
+		shootMax = 5;
+		Debug.Log ("now reloarding!");
 	}
 }
