@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveAngle();
         //衝突していなかったら
         if (flg == 0)
         {
@@ -28,8 +29,13 @@ public class Enemy : MonoBehaviour
         //衝突したら
         if(flg == 1)
         {
+
+            Debug.Log(knockBackDirection.x);
+            Debug.Log(knockBackDirection.y);
+
+
             //ノックバックさせる
-			float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
+            float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
 			float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
 			// Field内に移動しているかのチェック
 			if (dx < getField(2)) {
@@ -51,7 +57,8 @@ public class Enemy : MonoBehaviour
         {
             transform.position = tmp;
         }
-    }
+
+   }
 
     //衝突したら
     private void OnCollisionEnter(Collision other)
@@ -115,4 +122,46 @@ public class Enemy : MonoBehaviour
 			return 0;
 		}
 	}
+
+    void MoveAngle()
+    {
+        // 自分とターゲットとなる相手との方向を求める
+        Vector3 direction = (this.transform.position - target.transform.position).normalized;
+
+        if (direction.x == 0 && direction.y == 1)
+        {
+            Debug.Log("下に動く");
+        }
+        if(direction.x == 0 && direction.y == -1)
+        {
+            Debug.Log("上に動く");
+        }
+        if (direction.x == 1 && direction.y == 0)
+        {
+            Debug.Log("左に動く");
+        }
+        if (direction.x == -1 && direction.y == 0)
+        {
+            Debug.Log("右に動く");
+        }
+
+        if(direction.x > 0 && direction.y > 0)
+        {
+            Debug.Log("左斜め下");
+        }
+        if (direction.x > 0 && direction.y < 0)
+        {
+            Debug.Log("左斜め上");
+        }
+        if (direction.x < 0 && direction.y > 0)
+        {
+            Debug.Log("右斜め下");
+        }
+        if (direction.x < 0 && direction.y < 0)
+        {
+            Debug.Log("右斜め上");
+        }
+
+
+    }
 }
