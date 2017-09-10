@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //方向取得
+        MoveAngle();
+
         //衝突していなかったら
         if (flg == 0)
         {
@@ -115,4 +118,47 @@ public class Enemy : MonoBehaviour
 			return 0;
 		}
 	}
+
+    void MoveAngle()
+    {
+        // 自分とターゲットとなる相手との方向を求める
+        Vector3 direction = (this.transform.position - target.transform.position).normalized;
+
+        if (direction.x == 0 && direction.y == 1)
+        {
+            Debug.Log("下に動く");
+        }
+        if (direction.x == 0 && direction.y == -1)
+        {
+            Debug.Log("上に動く");
+        }
+        if (direction.x == 1 && direction.y == 0)
+        {
+            Debug.Log("左に動く");
+        }
+        if (direction.x == -1 && direction.y == 0)
+        {
+            Debug.Log("右に動く");
+        }
+
+        if (direction.x > 0 && direction.y > 0)
+        {
+            Debug.Log("左斜め下");
+        }
+        if (direction.x > 0 && direction.y < 0)
+        {
+            Debug.Log("左斜め上");
+        }
+        if (direction.x < 0 && direction.y > 0)
+        {
+            Debug.Log("右斜め下");
+        }
+        if (direction.x < 0 && direction.y < 0)
+        {
+            Debug.Log("右斜め上");
+        }
+
+
+    }
+
 }
