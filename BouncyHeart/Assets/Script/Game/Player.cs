@@ -91,7 +91,9 @@ public class Player : MonoBehaviour {
 		}
 		//Instantiate (ballPrefab, transform.position, Quaternion.identity);
 		// 弾を生成
-		GameObject shot = Instantiate (ballPrefab, transform.position, transform.rotation) as GameObject;
+		Vector3 PlayerPos = transform.position;
+		Vector3 ballPos = new Vector3 (PlayerPos.x + vector.x/3, PlayerPos.y + vector.y/3, PlayerPos.z);
+		GameObject shot = Instantiate (ballPrefab, ballPos, transform.rotation) as GameObject;
 		// Shotスクリプトオブジェクトを取得
 		BallController s = shot.GetComponent<BallController>();
 		// 移動速度を設定
