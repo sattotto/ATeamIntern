@@ -10,9 +10,18 @@ public class Enemy : MonoBehaviour
     float knockBackSpeed = 0.5f;
     Vector3 knockBackDirection = new Vector3(0, 0, 0);
 
+    //Animator
+    Animator anim;
+
+
+    //アニメーションのフラグ
+    int dir = 0;
+
     // Use this for initialization
     void Start()
     {
+        //Animatorをキャッシュ
+        anim = GetComponent<Animator>();
 
     }
 
@@ -21,6 +30,9 @@ public class Enemy : MonoBehaviour
     {
         //方向取得
         MoveAngle();
+        //方向をセット
+        anim.SetInteger("dir", dir);
+
 
         //衝突していなかったら
         if (flg == 0)
@@ -119,45 +131,84 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+    //--------------------------------------------------------//
+    // アニメーションのstateメモ
+    // ０：UP　１：DOWN　２：LEFT　３：RIGHT
+    // ４：LEFTUP　５：RIGHTUP　６：LEFTDOWN　７：RIGHTDOWN
+    //--------------------------------------------------------//
     void MoveAngle()
     {
         // 自分とターゲットとなる相手との方向を求める
         Vector3 direction = (this.transform.position - target.transform.position).normalized;
+        //角度を求める
+        float angle = Mathf.Atan2(-direction.y, -direction.x);
+        angle *= Mathf.Rad2Deg;
+        angle = (angle + 360.0f) % 360.0f;
 
-        if (direction.x == 0 && direction.y == 1)
-        {
-            Debug.Log("下に動く");
-        }
-        if (direction.x == 0 && direction.y == -1)
-        {
-            Debug.Log("上に動く");
-        }
-        if (direction.x == 1 && direction.y == 0)
-        {
-            Debug.Log("左に動く");
-        }
-        if (direction.x == -1 && direction.y == 0)
+        Debug.Log(angle);
+
+        //角度から向いている方向を判断し、アニメーションフラグを変更する
+        if ((angle > 337.5f) || (angle < 22.5f))
         {
             Debug.Log("右に動く");
+            dir = 3;
         }
+        else
+        {
+            if ((angle >= 22.5f) && (angle <= 67.5f))
+            {
+                Debug.Log("右上に動く");
+                dir = 5;
+            }
+            else
+            {
+                if ((angle > 67.5f) && (angle < 112.5f))
+                {
+                    Debug.Log("上に動く");
+                    dir = 0;
+                }
+                else
+                {
+                    if ((angle > 112.5f) && (angle < 157.5f))
+                    {
+                        Debug.Log("左上に動く");
+                        dir = 4;
+                    }
+                    else
+                    {
+                        if ((angle > 157.5f) && (angle < 202.5f))
+                        {
+                            Debug.Log("左に動く");
+                            dir = 2;
+                        }
+                        else
+                        {
+                            if ((angle > 202.5f) && (angle < 247.5f))
+                            {
+                                Debug.Log("左下に動く");
+                                dir = 6;
+                            }
+                            else
+                            {
+                                if ((angle > 247.5f) && (angle < 292.5f))
+                                {
+                                    Debug.Log("下に動く");
+                                    dir = 1;
+                                }
+                                else
+                                {
+                                    Debug.Log("右下に動く");
+                                    dir = 7;
+                                }
 
-        if (direction.x > 0 && direction.y > 0)
-        {
-            Debug.Log("左斜め下");
-        }
-        if (direction.x > 0 && direction.y < 0)
-        {
-            Debug.Log("左斜め上");
-        }
-        if (direction.x < 0 && direction.y > 0)
-        {
-            Debug.Log("右斜め下");
-        }
-        if (direction.x < 0 && direction.y < 0)
-        {
-            Debug.Log("右斜め上");
-        }
+                            }
 
+                        }
+
+                    }
+                }
+            }
+        }
 
     }
 
