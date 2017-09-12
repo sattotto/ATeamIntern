@@ -16,8 +16,13 @@ public class Player : MonoBehaviour {
 	public float fieldLeft;
 	public float fieldRight;
 
+	int shootMax;
+	bool isReload = false;
+
 	Vector3 prevPos = new Vector3( 0, 0, 0);
 	float prevRot;
+
+	public static Vector2 vector;
 
 	// Use this for initialization
 	void Start () {
@@ -32,12 +37,17 @@ public class Player : MonoBehaviour {
 		PLAYER_HP_MAX = Const.PLAYER_HP;
 		playerHP = PLAYER_HP_MAX;
 
+		shootMax = Const.SHOOT_NUM;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		moveKeyboard ();
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (!isReload) {
+			moveKeyboard ();
+		} else {
+			Invoke("flgChange",1f);
+		}
+		if (Input.GetKeyDown (KeyCode.Space) && !isReload) {
 			shoot ();
 		}
 		checkPlayerRotation ();
@@ -75,7 +85,19 @@ public class Player : MonoBehaviour {
 	}
 
 	void shoot(){
-		Instantiate (ballPrefab, transform.position, Quaternion.identity);
+		shootMax -= 1;
+		if (shootMax == 0) {
+			isReload = true;
+		}
+		//Instantiate (ballPrefab, transform.position, Quaternion.identity);
+		// 弾を生成
+		Vector3 PlayerPos = transform.position;
+		Vector3 ballPos = new Vector3 (PlayerPos.x + vector.x/3, PlayerPos.y + vector.y/3, PlayerPos.z);
+		GameObject shot = Instantiate (ballPrefab, ballPos, transform.rotation) as GameObject;
+		// Shotスクリプトオブジェクトを取得
+		BallController s = shot.GetComponent<BallController>();
+		// 移動速度を設定
+		s.Create(prevRot, 3f);
 	}
 
 	public static void PlayerDamaged(int damage){
@@ -102,6 +124,9 @@ public class Player : MonoBehaviour {
 		float y = this.transform.position.y - prevPos.y;
 
 		Vector2 vec = new Vector2 (x, y).normalized;
+		vector = vec;
+
+		Debug.Log (vector);
 
 		float rot = Mathf.Atan2 (vec.y, vec.x) * 180 / Mathf.PI;
 
@@ -109,9 +134,15 @@ public class Player : MonoBehaviour {
 		if(rot <-180) rot+= 360;
 
 		if (prevRot != rot) {
-			Debug.Log ("Angle = " + rot);
+//			Debug.Log ("Angle = " + rot);
 			prevRot = rot;
 			prevPos = this.transform.position;
 		}
+	}
+
+	void flgChange (){
+		isReload = false;
+		shootMax = 5;
+		Debug.Log ("now reloarding!");
 	}
 }

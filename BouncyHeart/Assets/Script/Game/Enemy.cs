@@ -17,9 +17,14 @@ public class Enemy : MonoBehaviour
     //アニメーションのフラグ
     int dir = 0;
 
+	public int ENEMY_HP_MAX = Const.ENEMY_HP;
+	public int enemyHP;
+
     // Use this for initialization
     void Start()
     {
+		ENEMY_HP_MAX = Const.ENEMY_HP;
+		enemyHP = ENEMY_HP_MAX;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
 
@@ -85,6 +90,12 @@ public class Enemy : MonoBehaviour
             //0.5秒後にフラグを2にする
             Invoke("flgChange",0.1f);
         }
+		// tagがballなら
+		if (other.gameObject.tag == "ball") {
+			Destroy (other.gameObject);
+			EnemyDamaged (1);
+			Debug.Log ("test");
+		}
     }
 
 
@@ -212,4 +223,21 @@ public class Enemy : MonoBehaviour
 
     }
 
+
+	void EnemyDamaged(int damage){
+		setEnemyHP (enemyHP - damage);
+		if (enemyHP <= 0) {
+			Destroy (this.gameObject);
+		}
+	}
+
+	void EnemyHealed(int heal) {
+		int setHP = System.Math.Min (ENEMY_HP_MAX, enemyHP + heal);
+		setEnemyHP (setHP);
+	}
+
+	void setEnemyHP(int HP){
+		enemyHP = HP;
+		Debug.Log (enemyHP);
+	}
 }
