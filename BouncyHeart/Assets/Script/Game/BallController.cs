@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BallController : MonoBehaviour {
-	void Update () {
-		transform.Translate (0, 0.2f, 0);
+	Rigidbody _rigidbody = null;
 
-		if (transform.position.y > 5) {
-			Destroy (gameObject);
-		}
+	public Rigidbody RigidBody {
+		get { return _rigidbody ?? (_rigidbody = gameObject.GetComponent<Rigidbody> ()); }
+	}
+
+	public void Create(float direction, float speed) {
+		Vector3 v;
+		v.x = Mathf.Cos (Mathf.Deg2Rad * direction) * speed;
+		v.y = Mathf.Sin (Mathf.Deg2Rad * direction) * speed;
+		v.z = 0;
+		RigidBody.velocity = v;
 	}
 }

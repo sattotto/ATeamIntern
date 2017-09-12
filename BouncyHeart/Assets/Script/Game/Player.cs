@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
 	Vector3 prevPos = new Vector3( 0, 0, 0);
 	float prevRot;
 
+	public static Vector2 vector;
+
 	// Use this for initialization
 	void Start () {
 		// カメラオブジェクトを取得します
@@ -87,7 +89,13 @@ public class Player : MonoBehaviour {
 		if (shootMax == 0) {
 			isReload = true;
 		}
-		Instantiate (ballPrefab, transform.position, Quaternion.identity);
+		//Instantiate (ballPrefab, transform.position, Quaternion.identity);
+		// 弾を生成
+		GameObject shot = Instantiate (ballPrefab, transform.position, transform.rotation) as GameObject;
+		// Shotスクリプトオブジェクトを取得
+		BallController s = shot.GetComponent<BallController>();
+		// 移動速度を設定
+		s.Create(prevRot, 3f);
 	}
 
 	public static void PlayerDamaged(int damage){
@@ -114,6 +122,9 @@ public class Player : MonoBehaviour {
 		float y = this.transform.position.y - prevPos.y;
 
 		Vector2 vec = new Vector2 (x, y).normalized;
+		vector = vec;
+
+		Debug.Log (vector);
 
 		float rot = Mathf.Atan2 (vec.y, vec.x) * 180 / Mathf.PI;
 
@@ -121,7 +132,7 @@ public class Player : MonoBehaviour {
 		if(rot <-180) rot+= 360;
 
 		if (prevRot != rot) {
-			Debug.Log ("Angle = " + rot);
+//			Debug.Log ("Angle = " + rot);
 			prevRot = rot;
 			prevPos = this.transform.position;
 		}
