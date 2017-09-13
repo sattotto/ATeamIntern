@@ -8,3 +8,5 @@ Obj
 *.userprefs
 *.swp
 *.csproj
+*.suo
+
