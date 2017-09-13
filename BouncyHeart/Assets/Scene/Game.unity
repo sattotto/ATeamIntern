@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 166829794}
   - component: {fileID: 166829792}
   - component: {fileID: 166829795}
+  - component: {fileID: 166829796}
   m_Layer: 5
   m_Name: Player
   m_TagString: player
@@ -135,8 +136,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 166829789}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -68, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.3, y: -68.4, z: 0}
+  m_LocalScale: {x: 1.0362569, y: 1.0341332, z: 1}
   m_Children: []
   m_Father: {fileID: 1693261448}
   m_RootOrder: 1
@@ -247,6 +248,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!136 &166829796
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 166829789}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 6.63
+  m_Height: 22.58
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.0000009536743, z: 0}
 --- !u!1 &209299098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1444,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1960966125}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 6.84

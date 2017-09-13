@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
     }
 
     //衝突したら
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         //tagがplayerなら
         if (other.gameObject.tag == "player")

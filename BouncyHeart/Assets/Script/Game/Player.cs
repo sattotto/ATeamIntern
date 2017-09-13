@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class Player : MonoBehaviour {
 	
@@ -24,14 +26,24 @@ public class Player : MonoBehaviour {
 
 	public static Vector2 vector;
 
+    //Animator
+    Animator anim;
+
+    //アニメーション変更用変数
+    int dir;
+
 	// Use this for initialization
 	void Start () {
 		// カメラオブジェクトを取得します
 		GameObject obj = GameObject.Find ("Main Camera");
 		_mainCamera = obj.GetComponent<Camera> ();
 
-		// 座標値を出力
-		Debug.Log (getScreenTopLeft ().x + ", " + getScreenTopLeft ().y);
+        //Animatorをキャッシュ
+        anim = GetComponent<Animator>();
+
+
+        // 座標値を出力
+        Debug.Log (getScreenTopLeft ().x + ", " + getScreenTopLeft ().y);
 		Debug.Log (getScreenBottomRight ().x + ", " + getScreenBottomRight ().y);
 
 		PLAYER_HP_MAX = Const.PLAYER_HP;
@@ -51,9 +63,13 @@ public class Player : MonoBehaviour {
 			shoot ();
 		}
 		checkPlayerRotation ();
-	}
+        //方向をセット
+        anim.SetInteger("dir", dir);
 
-	void moveKeyboard(){
+
+    }
+
+    void moveKeyboard(){
 		if (Input.GetKey (KeyCode.LeftArrow) && fieldLeft < transform.position.x) {
 			transform.Translate (-Const.SPEED[GameSpeedButton.speedCount], 0, 0);
 		}
@@ -126,6 +142,13 @@ public class Player : MonoBehaviour {
 		Vector2 vec = new Vector2 (x, y).normalized;
 		vector = vec;
 
+        float xx = prevPos.x - this.transform.position.x;
+        float yy = prevPos.y - this.transform.position.y;
+        Vector2 move_vec = new Vector2(xx, yy).normalized;
+
+        //アニメーション用
+        MoveAngle(move_vec);
+
 		Debug.Log (vector);
 
 		float rot = Mathf.Atan2 (vec.y, vec.x) * 180 / Mathf.PI;
@@ -145,4 +168,87 @@ public class Player : MonoBehaviour {
 		shootMax = 5;
 		Debug.Log ("now reloarding!");
 	}
+
+    //--------------------------------------------------------//
+    // アニメーションのstateメモ
+    // ０：UP　１：DOWN　２：LEFT　３：RIGHT
+    // ４：LEFTUP　５：RIGHTUP　６：LEFTDOWN　７：RIGHTDOWN
+    //--------------------------------------------------------//
+    void MoveAngle(Vector2 player_dir)
+    {
+        // 自分とターゲットとなる相手との方向を求める
+        Vector2 direction = player_dir;
+        //角度を求める
+        float angle = Mathf.Atan2(-direction.y, -direction.x);
+        angle *= Mathf.Rad2Deg;
+        angle = (angle + 360.0f) % 360.0f;
+
+        //Debug.Log(angle);
+
+        //角度から向いている方向を判断し、アニメーションフラグを変更する
+        if ((angle > 337.5f) || (angle < 22.5f))
+        {
+            Debug.Log("右に動く");
+            dir = 3;
+        }
+        else
+        {
+            if ((angle >= 22.5f) && (angle <= 67.5f))
+            {
+                Debug.Log("右上に動く");
+                dir = 5;
+            }
+            else
+            {
+                if ((angle > 67.5f) && (angle < 112.5f))
+                {
+                    Debug.Log("上に動く");
+                    dir = 0;
+                }
+                else
+                {
+                    if ((angle > 112.5f) && (angle < 157.5f))
+                    {
+                        Debug.Log("左上に動く");
+                        dir = 4;
+                    }
+                    else
+                    {
+                        if ((angle > 157.5f) && (angle < 202.5f))
+                        {
+                            Debug.Log("左に動く");
+                            dir = 2;
+                        }
+                        else
+                        {
+                            if ((angle > 202.5f) && (angle < 247.5f))
+                            {
+                                Debug.Log("左下に動く");
+                                dir = 6;
+                            }
+                            else
+                            {
+                                if ((angle > 247.5f) && (angle < 292.5f))
+                                {
+                                    Debug.Log("下に動く");
+                                    dir = 1;
+                                }
+                                else
+                                {
+                                    Debug.Log("右下に動く");
+                                    dir = 7;
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
+
+
 }
