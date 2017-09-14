@@ -87,7 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34956b19f41fa704b998c03018d7b671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1128745599228216, guid: a4ec6a91f6465492687ca97a7fccd295, type: 2}
   flg: 0
   tmp: {x: 0, y: 0, z: 0}
   ENEMY_HP_MAX: 3
