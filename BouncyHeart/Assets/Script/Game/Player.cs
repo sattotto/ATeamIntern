@@ -318,7 +318,7 @@ public class Player : MonoBehaviour
     void BallLoad()
     {
         shootNum += 1;
-        if (shootNum >= 4)
+        if (shootNum > 4)
         {
             BallReset();
         }
