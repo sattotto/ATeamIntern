@@ -16,4 +16,12 @@ public class BallController : MonoBehaviour {
 		v.z = 0;
 		RigidBody.velocity = v;
 	}
+
+    public void ChangeSprite(Sprite sprite)
+    {
+        SpriteRenderer ballSprict = this.GetComponent<SpriteRenderer>();
+
+        ballSprict.sprite = sprite;
+
+    }
 }

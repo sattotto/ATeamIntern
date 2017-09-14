@@ -82,6 +82,31 @@ public class Reload : MonoBehaviour
         return reloadBall[shootNum];
     }
 
+    public Sprite BallSptite(int id)
+    {
+        Sprite sprite = null;
+        switch (id)
+        {
+            case 0:
+                sprite = Kokonoha;
+                break;
+            case 1:
+                sprite = Fulost;
+                break;
+            case 2:
+                sprite = Milky;
+                break;
+            case 3:
+                sprite = King;
+                break;
+            case 4:
+                sprite = Ai;
+                break;
+        }
+
+        return sprite;
+    }
+
     public void KokodamaSpriteInitialize()
     {
         //------------------------------------------------------------------------//

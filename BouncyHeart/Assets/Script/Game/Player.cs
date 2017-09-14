@@ -147,7 +147,9 @@ public class Player : MonoBehaviour
         s.Create(prevRot, 3f);
 
         //打つボールを取得（配列から１つ取り出す）
-        reload.ShootBall();
+        int BallId = reload.ShootBall();
+        //ボールのテクスチャを変更
+        s.ChangeSprite(reload.BallSptite(BallId));
         //次に打つボールのセット
         reload.BallLoad();
     }
