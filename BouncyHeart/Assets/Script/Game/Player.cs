@@ -33,28 +33,6 @@ public class Player : MonoBehaviour
     //アニメーション変更用変数
     int dir;
 
-    //--------------------------------------//
-    // ココダマ
-    //--------------------------------------//
-    //配列
-    public int[] reloadBall = new int[5];
-    int shootNum = 0;
-
-    //描画用
-    GameObject[] Next;
-    SpriteRenderer NextSpriteRenderer;
-
-    //ココダマのイラスト一覧
-    public Sprite Kokonoha;
-    public Sprite Fulost;
-    public Sprite Milky;
-    public Sprite King;
-    public Sprite Ai;
-
-
-
-
-
 
     // Use this for initialization
     void Start()
@@ -76,11 +54,14 @@ public class Player : MonoBehaviour
 
         shootMax = Const.SHOOT_NUM;
 
+        Reload reload = FindObjectOfType<Reload>();
+
         //弾のイラスト設定
-        KokodamaSpriteInitialize();
+        reload.KokodamaSpriteInitialize();
         //弾の配列を入れる
-        BallReset();
-        NextRender();
+        reload.BallReset();
+        reload.KokodamaRender();
+        //NextRender();
 
 
 
@@ -148,6 +129,8 @@ public class Player : MonoBehaviour
 
     void shoot()
     {
+        Reload reload = FindObjectOfType<Reload>();
+
         shootMax -= 1;
         if (shootMax == 0)
         {
@@ -162,10 +145,11 @@ public class Player : MonoBehaviour
         BallController s = shot.GetComponent<BallController>();
         // 移動速度を設定
         s.Create(prevRot, 3f);
+
         //打つボールを取得（配列から１つ取り出す）
-        ShootBall();
+        reload.ShootBall();
         //次に打つボールのセット
-        BallLoad();
+        reload.BallLoad();
     }
 
     public static void PlayerDamaged(int damage)
@@ -310,81 +294,4 @@ public class Player : MonoBehaviour
         }
 
     }
-
-
-
-    //弾の配列をリセット
-    //打ったら、配列をずらす
-    void BallLoad()
-    {
-        shootNum += 1;
-        if (shootNum > 4)
-        {
-            BallReset();
-        }
-        NextRender();
-
-    }
-    void BallReset()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            reloadBall[i] = Random.Range(0, 4);
-
-            Debug.Log(reloadBall[i]);
-        }
-        //取り出し用変数を初期化
-        shootNum = 0;
-    }
-
-
-    int ShootBall()
-    {
-        Debug.Log("打つ");
-        Debug.Log(reloadBall[shootNum]);
-        return reloadBall[shootNum];
-    }
-
-    void KokodamaSpriteInitialize()
-    {
-        //------------------------------------------------------------------------//
-        // 取得した際の画像変更のために、それぞれのオブジェクトを取得しておく     //
-        //------------------------------------------------------------------------//
-
-        Next = GameObject.FindGameObjectsWithTag("NextKokodama");
-
-        // このobjectのSpriteRendererを取得
-        NextSpriteRenderer = Next[0].GetComponent<SpriteRenderer>();
-    }
-
-    void NextRender()
-    {
-
-        switch (reloadBall[shootNum])
-        {
-            case 0:
-                NextSpriteRenderer.sprite = Kokonoha;
-                break;
-            case 1:
-                NextSpriteRenderer.sprite = Fulost;
-                break;
-            case 2:
-                NextSpriteRenderer.sprite = Milky;
-                break;
-            case 3:
-                NextSpriteRenderer.sprite = King;
-                break;
-            case 4:
-                NextSpriteRenderer.sprite = Ai;
-                break;
-        }
-
-
-    }
-
-    //Kokonoha;
-    //Fulost;
-    //Milky;
-    //King;
-    //Ai;
 }

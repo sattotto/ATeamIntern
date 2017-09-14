@@ -8,6 +8,10 @@ TagManager:
   - enemy
   - ball
   - NextKokodama
+  - ThirdKokodama
+  - FourKokodama
+  - FiveKokodama
+  - SixKokodama
   layers:
   - Default
   - TransparentFX
