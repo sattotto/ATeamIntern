@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		enemySpown (Const.ENEMYPOS);
+		for (int i = 0; i < Const.ENEMY_NUM [0]; i++) {
+			enemySpown (Const.ENEMY_POS, i);
+		}
 		playerSpown ();
 	}
 
@@ -24,13 +26,11 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void enemySpown(Vector3 enemypos){
-		//Vector3 enemypos = new Vector3 (0, 4, 0);
-		//Instantiate (EnemyPrefab, enemtpos, Quaternion.identity);
-		GameObject enemy = Instantiate (EnemyPrefab, enemypos, transform.rotation) as GameObject;
-		// この時、objのlocalScaleは ( 1, 1, 1 )で、parentはrootになっている
+	void enemySpown(Vector3 enemypos, int i){
+
+		//GameObject enemy = Instantiate (EnemyPrefab, enemypos, transform.rotation) as GameObject;
+		GameObject enemy = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X[i], enemypos.y + Const.ENEMY_POS_Y[i], enemypos.z), transform.rotation) as GameObject;
 		enemy.transform.parent = this.transform;
-		// この時、objのlocalScaleはparentに応じて変更されている
 		enemy.transform.localScale = Vector3.one;
 	}
 
