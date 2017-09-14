@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
             //フラグを1にする
             flg = 1;
 
-			Player.PlayerDamaged (1);
+			Player.PlayerDamaged (Const.ENEMY_ATK);
 
             //0.5秒後にフラグを2にする
             Invoke("flgChange",0.1f);
@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
 		// tagがballなら
 		if (other.gameObject.tag == "ball") {
 			Destroy (other.gameObject);
-			EnemyDamaged (1);
+			EnemyDamaged (Const.BALL_ATK[0]);
 			Debug.Log ("test");
 		}
     }
