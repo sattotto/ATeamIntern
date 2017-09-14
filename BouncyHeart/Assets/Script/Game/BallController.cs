@@ -15,5 +15,6 @@ public class BallController : MonoBehaviour {
 		v.y = Mathf.Sin (Mathf.Deg2Rad * direction) * speed;
 		v.z = 0;
 		RigidBody.velocity = v;
+		Destroy (this.gameObject, 1f);
 	}
 }
