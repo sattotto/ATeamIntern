@@ -228,6 +228,8 @@ public class Enemy : MonoBehaviour
 	void EnemyDamaged(int damage){
 		setEnemyHP (enemyHP - damage);
 		if (enemyHP <= 0) {
+			GameManager.EnemyNum -= 1;
+			GameManager.clearCheck ();
 			Destroy (this.gameObject);
 		}
 	}
