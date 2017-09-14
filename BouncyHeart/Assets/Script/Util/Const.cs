@@ -10,4 +10,6 @@ public class Const : MonoBehaviour {
 	public static int ENEMY_HP = 3;
 
 	public static int SHOOT_NUM = 5;
+
+	public static Vector3 ENEMYPOS = new Vector3 (0, 4, 0);
 }
