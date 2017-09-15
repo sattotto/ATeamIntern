@@ -9,6 +9,7 @@ public class HPBarScript : MonoBehaviour {
 	void Start () {
 		// スライダーを取得する
 		_slider = GameObject.Find("Slider").GetComponent<Slider>();
+		_slider.maxValue = Const.PLAYER_HP;
 	}
 	
 	// Update is called once per frame

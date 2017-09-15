@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public GameObject target;
+    GameObject target;
     public int flg = 0;
     public Vector3 tmp;
     float knockBackSpeed = 0.5f;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
 		enemyHP = ENEMY_HP_MAX;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
-
+		target = GameObject.Find ("Player");
     }
 
     // Update is called once per frame
@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
         {
             //プレイヤーに追従する処理
             this.transform.position=Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 1f * Time.deltaTime);
+			Debug.Log ("target : " + target.transform.position);
         } 
         //衝突したら
         if(flg == 1)
@@ -85,7 +86,7 @@ public class Enemy : MonoBehaviour
             //フラグを1にする
             flg = 1;
 
-			Player.PlayerDamaged (1);
+			Player.PlayerDamaged (Const.ENEMY_ATK);
 
             //0.5秒後にフラグを2にする
             Invoke("flgChange",0.1f);
@@ -93,7 +94,7 @@ public class Enemy : MonoBehaviour
 		// tagがballなら
 		if (other.gameObject.tag == "ball") {
 			Destroy (other.gameObject);
-			EnemyDamaged (1);
+			EnemyDamaged (Const.BALL_ATK[0]);
 			//Debug.Log ("test");
 		}
     }
@@ -227,6 +228,8 @@ public class Enemy : MonoBehaviour
 	void EnemyDamaged(int damage){
 		setEnemyHP (enemyHP - damage);
 		if (enemyHP <= 0) {
+			GameManager.EnemyNum -= 1;
+			GameManager.clearCheck ();
 			Destroy (this.gameObject);
 		}
 	}
