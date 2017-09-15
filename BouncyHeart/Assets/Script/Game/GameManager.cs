@@ -42,14 +42,14 @@ public class GameManager : MonoBehaviour {
 		//GameObject enemy = Instantiate (EnemyPrefab, enemypos, transform.rotation) as GameObject;
 		GameObject enemy = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X[i], enemypos.y + Const.ENEMY_POS_Y[i], enemypos.z), transform.rotation) as GameObject;
 		enemy.transform.parent = this.transform;
-		enemy.transform.localScale = Vector3.one;
+		enemy.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 	}
 
 	void playerSpawn(){
 		Vector3 playerpos = new Vector3 (0, 0, 0);
 		GameObject player = Instantiate (PlayerPrefab, playerpos, transform.rotation) as GameObject;
 		player.transform.parent = this.transform;
-		player.transform.localScale = Vector3.one;
+		player.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 		player.name = PlayerPrefab.name;
 	}
 
