@@ -15,7 +15,7 @@ public class BallController : MonoBehaviour {
 		v.y = Mathf.Sin (Mathf.Deg2Rad * direction) * speed;
 		v.z = 0;
 		RigidBody.velocity = v;
-		Destroy (this.gameObject, 1f);
+		Destroy (this.gameObject, 0.25f);
 	}
 
     public void ChangeSprite(Sprite sprite)
