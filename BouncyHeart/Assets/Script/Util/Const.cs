@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Const : MonoBehaviour {
 	// 移動スピード
-	public static float[] SPEED = { 0.05f, 0.1f, 0.15f, 0.2f };
+	// 現在はスピード変更の機能がなくindex = 1の箇所を参照
+	public static float[] SPEED = { 0.01f, 0.0275f, 0.15f, 0.2f };
 
 	// プレイヤーHP
 	public static int PLAYER_HP = 1000;
