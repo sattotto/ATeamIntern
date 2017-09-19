@@ -279,11 +279,24 @@ public class Reload : MonoBehaviour
 
     }
 
+    public void KingSkill()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            reloadBall[i] = 3;
 
+            Debug.Log(reloadBall[i]);
+        }
+        //取り出し用変数を初期化
+        shootNum = 0;
+    }
+    public void RenderKing()
+    {
+        NextSpriteRenderer.sprite = King;
+        ThirdSpriteRenderer.sprite = King;
+        FourSpriteRenderer.sprite = King;
+        FiveSpriteRenderer.sprite = King;
+        SixSpriteRenderer.sprite = King;
 
-    //Kokonoha;
-    //Fulost;
-    //Milky;
-    //King;
-    //Ai;
+    }
 }
