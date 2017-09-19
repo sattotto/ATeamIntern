@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     float prevRot;
 
     public static Vector2 vector;
+	public static Vector3 playerPos;
 
     //Animator
     Animator anim;
@@ -85,7 +86,7 @@ public class Player : MonoBehaviour
         checkPlayerRotation();
         //方向をセット
         anim.SetInteger("dir", dir);
-
+		playerPos = transform.position;
 
     }
 
@@ -144,7 +145,8 @@ public class Player : MonoBehaviour
         // Shotスクリプトオブジェクトを取得
         BallController s = shot.GetComponent<BallController>();
         // 移動速度を設定
-        s.Create(prevRot, 3f);
+        s.Create(prevRot, 5f);
+		    //s.setoffset (playerPos);
 
         //打つボールを取得（配列から１つ取り出す）
         int BallId = reload.ShootBall();
