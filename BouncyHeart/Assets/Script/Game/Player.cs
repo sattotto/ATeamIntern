@@ -145,8 +145,9 @@ public class Player : MonoBehaviour
         // Shotスクリプトオブジェクトを取得
         BallController s = shot.GetComponent<BallController>();
         // 移動速度を設定
-        s.Create(prevRot, 5f);
-		    //s.setoffset (playerPos);
+        //s.Create(prevRot, 5f);
+		//s.setoffset (playerPos);
+		s.circleSet(2f,2f);
 
         //打つボールを取得（配列から１つ取り出す）
         int BallId = reload.ShootBall();

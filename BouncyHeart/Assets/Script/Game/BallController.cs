@@ -8,6 +8,9 @@ public class BallController : MonoBehaviour {
 	Vector3 target;
 	float deg;
 
+	float speed;
+	float radius;
+
 	Rigidbody _rigidbody = null;
 
 	public Rigidbody RigidBody {
@@ -16,7 +19,6 @@ public class BallController : MonoBehaviour {
 
 	public void setoffset(Vector3 playerpos){
 		offset = playerpos;
-//		Debug.Log (offset);
 		SetTarget ( new Vector3(3,0,0), 60 );
 	}
 
@@ -59,4 +61,21 @@ public class BallController : MonoBehaviour {
 		StartCoroutine ("ThrowBall");
 	}
 
+	public void circleSet (float speed, float radius){
+		this.speed = speed;
+		this.radius = radius;
+		Destroy (this.gameObject, 2f);
+		StartCoroutine ("circleMove");
+	}
+
+	IEnumerator circleMove(){
+		for (float t = 0;;t += 0.1f){
+			float x = Mathf.Cos(t * speed) * radius;
+			float y = Mathf.Sin(t * speed) * radius;
+			float z = 0f;
+			transform.position = new Vector3(x, y, z);
+
+			yield return null;
+		}
+	}
 }
