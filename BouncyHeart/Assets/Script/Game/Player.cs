@@ -130,11 +130,19 @@ public class Player : MonoBehaviour
     void shoot()
     {
         Reload reload = FindObjectOfType<Reload>();
+        Skill skill = FindObjectOfType<Skill>();
 
         shootMax -= 1;
         if (shootMax == 0)
         {
-            isReload = true;
+            if (skill.kingSkill)
+            {
+                isReload = false;
+            }
+            else
+            {
+                isReload = true;
+            }
         }
         //Instantiate (ballPrefab, transform.position, Quaternion.identity);
         // 弾を生成

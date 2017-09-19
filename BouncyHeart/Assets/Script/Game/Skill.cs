@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-
+    public int kingTime = 0;
+    public bool kingSkill = false;
     // Use this for initialization
     void Start()
     {
@@ -15,6 +16,13 @@ public class Skill : MonoBehaviour
     void Update()
     {
         var reload = GetComponent<Reload>();
+
+        if(kingSkill)
+        {
+            KingTime();
+            //kingSkill = true;
+        }
+
         if (Input.GetMouseButton(0))
         {
             //クリックして、オブジェクトがあったら
@@ -32,6 +40,7 @@ public class Skill : MonoBehaviour
                             //皇の必殺技呼び出し
                             reload.KingSkill();
                             reload.RenderKing();
+                            kingSkill = true;
                             Debug.Log("王様");
                             break;
                         //フロスト：9
@@ -64,4 +73,16 @@ public class Skill : MonoBehaviour
         }
         return result;
     }
+
+    public void KingTime()
+    {
+        kingTime++;
+        Debug.Log(kingTime);
+
+        if(kingTime > 900)
+        {
+            kingSkill = false;
+            Debug.Log("TimeOver");
+        }
+    } 
 }

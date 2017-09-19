@@ -52,13 +52,20 @@ public class Reload : MonoBehaviour
     //打ったら、配列をずらす
     public void BallLoad()
     {
+        Skill king = GetComponent<Skill>();
         shootNum += 1;
         if (shootNum > 4)
         {
-            BallReset();
+            if (king.kingSkill)
+            {
+                KingSkill();
+            }
+            else
+            {
+                BallReset();
+            }
         }
         KokodamaRender();
-        //NextRender();
 
     }
     public void BallReset()
@@ -289,6 +296,7 @@ public class Reload : MonoBehaviour
         }
         //取り出し用変数を初期化
         shootNum = 0;
+        RenderKing();
     }
     public void RenderKing()
     {
