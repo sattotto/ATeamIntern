@@ -292,7 +292,7 @@ public class Reload : MonoBehaviour
         {
             reloadBall[i] = 3;
 
-            Debug.Log(reloadBall[i]);
+            //Debug.Log(reloadBall[i]);
         }
         //取り出し用変数を初期化
         shootNum = 0;

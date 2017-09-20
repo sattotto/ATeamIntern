@@ -108,6 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302eeb213f6c4a844b0be91d53ebe8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kingTime: 0
+  kingSkill: 0
+  kingNotEffect: 1
+  KingPanelPrefab: {fileID: 1817026250299298, guid: ece84641b190ae545a8a8feee7414915,
+    type: 2}
+  canvas: {fileID: 0}
 --- !u!114 &114325986657444268
 MonoBehaviour:
   m_ObjectHideFlags: 1

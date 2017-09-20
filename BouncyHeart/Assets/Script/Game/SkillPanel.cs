@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SkillPanel : MonoBehaviour
 {
 
-    public bool flug = false;
+    public bool flug = true;
     bool position_flug = true;
     bool end_flug = false;
     int bgm = 0;
@@ -14,6 +14,8 @@ public class SkillPanel : MonoBehaviour
     public bool skill_flug = false;
     private AudioSource king;
     Vector2 start_pos;
+
+    public GameObject player;
 
     //Vector2 pos;
     // Use this for initialization
@@ -29,22 +31,25 @@ public class SkillPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var skill = player.GetComponent<Skill>();
         if (flug)
         {
             if (position_flug || end_flug)
             {
                 Vector2 pos = GetComponent<RectTransform>().anchoredPosition;
-                pos.x -= 10;
+                pos.x -= 5;
                 GetComponent<RectTransform>().anchoredPosition = pos;
-                if (pos.x < 4)
+                if (pos.x <= 0)
                 {
                     position_flug = false;
                 }
-                if(pos.x < -384)
+                if(pos.x < -10)
                 {
-                    flug = false;
-                    skill_flug = true;
-                    GetComponent<RectTransform>().anchoredPosition = start_pos;
+                    skill.kingNotEffect = true;
+                    Destroy(this.gameObject);
+                    //flug = false;
+                    //skill_flug = true;
+                    //GetComponent<RectTransform>().anchoredPosition = start_pos;
                 }
             }
             if (!position_flug)
