@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     bool isReload = false;
 
     Vector3 prevPos = new Vector3(0, 0, 0);
+    float rot;
     float prevRot;
 
     public static Vector2 vector;
@@ -147,7 +148,7 @@ public class Player : MonoBehaviour
         // 移動速度を設定
         //s.Create(prevRot, 5f);
 		//s.setoffset (playerPos);
-		s.circleSet(2f,2f);
+		s.circleSet(2f,2f,rot);
 
         //打つボールを取得（配列から１つ取り出す）
         int BallId = reload.ShootBall();
@@ -197,7 +198,7 @@ public class Player : MonoBehaviour
 
         ////Debug.Log (vector);
 
-        float rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;
+        rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;
 
         if (rot > 180) rot -= 360;
         if (rot < -180) rot += 360;

@@ -54,24 +54,33 @@ public class BallController : MonoBehaviour {
 
 	public void SetTarget(Vector3 target, float deg)
 	{
-//		this.offset = Player.playerPos;
+		//this.offset = Player.playerPos;
 		this.target = target;
 		this.deg = deg;
 
 		StartCoroutine ("ThrowBall");
 	}
 
-	public void circleSet (float speed, float radius){
-		this.speed = speed;
+	/// <summary>
+	/// Playerのぼーる投擲の種類
+	/// </summary>
+	/// <param name="speed">回転するスピード</param>
+	/// <param name="radius">回転の半径</param>
+	/// <param name="playerDig">プレイヤーの向いている角度</param>
+	public void circleSet (float speed, float radius, float playerDeg){
+		this.speed = 1f;
 		this.radius = radius;
-		Destroy (this.gameObject, 2f);
+		this.deg = playerDeg;
+		Destroy (this.gameObject, 5f);
 		StartCoroutine ("circleMove");
 	}
 
 	IEnumerator circleMove(){
 		for (float t = 0;;t += 0.1f){
-			float x = Mathf.Cos(t * speed) * radius;
-			float y = Mathf.Sin(t * speed) * radius;
+			Debug.Log ("t : " + t + " speed : " + speed + " t x speed = " + t*speed + " cos= " + Mathf.Cos (t * speed) + " sin= " + Mathf.Sin (t * speed));
+
+			float x = Mathf.Cos(t * speed + deg*Mathf.Deg2Rad) * radius;
+			float y = Mathf.Sin(t * speed + deg*Mathf.Deg2Rad) * radius;
 			float z = 0f;
 			transform.position = new Vector3(x, y, z);
 
