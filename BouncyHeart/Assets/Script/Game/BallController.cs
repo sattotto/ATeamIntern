@@ -17,11 +17,6 @@ public class BallController : MonoBehaviour {
 		get { return _rigidbody ?? (_rigidbody = gameObject.GetComponent<Rigidbody> ()); }
 	}
 
-	public void setoffset(Vector3 playerpos){
-		offset = playerpos;
-		SetTarget ( new Vector3(3,0,0), 60 );
-	}
-
 	public void Create(float direction, float speed) {
 		Vector3 v;
 		v.x = Mathf.Cos (Mathf.Deg2Rad * direction) * speed;
@@ -38,6 +33,11 @@ public class BallController : MonoBehaviour {
         ballSprict.sprite = sprite;
 
     }
+
+	public void setoffset(Vector3 playerpos){
+		offset = playerpos;
+		SetTarget ( new Vector3(3,0,0), 60 );
+	}
 
 	IEnumerator ThrowBall()
 	{
@@ -82,7 +82,7 @@ public class BallController : MonoBehaviour {
 			float x = Mathf.Cos(t * speed + deg*Mathf.Deg2Rad) * radius;
 			float y = Mathf.Sin(t * speed + deg*Mathf.Deg2Rad) * radius;
 			float z = 0f;
-			transform.position = new Vector3(x, y, z);
+			transform.position = new Vector3(x, y, z) + Player.playerPos;
 
 			yield return null;
 		}
