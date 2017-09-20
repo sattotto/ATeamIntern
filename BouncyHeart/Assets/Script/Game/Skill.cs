@@ -9,12 +9,16 @@ public class Skill : MonoBehaviour
     public bool kingSkill = false;
     public bool kingNotEffect;
     public GameObject KingPanelPrefab;
-    public Canvas canvas;
-
+    int bgm = 0;
+    private AudioSource skillUp;
+    private AudioSource KingBgm;
 
     // Use this for initialization
     void Start()
     {
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        skillUp = audioSource[0];
+        KingBgm = audioSource[1];
     }
 
     // Update is called once per frame
@@ -34,6 +38,7 @@ public class Skill : MonoBehaviour
 
         if (kingSkill)
         {
+            
             KingTime();
             //kingSkill = true;
         }
@@ -53,12 +58,15 @@ public class Skill : MonoBehaviour
                         //皇：8
                         case 8:
                             GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
+                            //KingBgm.PlayOneShot(KingBgm.clip);
+
                             //if (kingNotEffect)
                             {
                                 //皇の必殺技呼び出し
                                 //reload.KingSkill();
                                 //reload.RenderKing();
                                 kingSkill = true;
+                                bgm++;
                                 Debug.Log("王様");
                             }
                             break;
@@ -98,16 +106,28 @@ public class Skill : MonoBehaviour
     {
         var reload = GetComponent<Reload>();
 
+        if (bgm == 1)
+        {
+            KingBgm.PlayOneShot(KingBgm.clip);
+            Debug.Log("music!!");
+        }
+
+
         kingTime++;
+        bgm++;
         Debug.Log(kingTime);
         if(kingTime == 240)
         {
+            skillUp.PlayOneShot(skillUp.clip);
+
             reload.KingSkill();
             reload.RenderKing();
         }
         if (kingTime > 900)
         {
             kingSkill = false;
+            KingBgm.Stop();
+
             Debug.Log("TimeOver");
         }
     }
