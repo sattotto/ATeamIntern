@@ -68,16 +68,16 @@ public class BallController : MonoBehaviour {
 	/// <param name="radius">回転の半径</param>
 	/// <param name="playerDig">プレイヤーの向いている角度</param>
 	public void circleSet (float speed, float radius, float playerDeg){
-		this.speed = 1f;
+		this.speed = 1.5f;
 		this.radius = radius;
 		this.deg = playerDeg;
-		Destroy (this.gameObject, 5f);
+		Destroy (this.gameObject, 1f);
 		StartCoroutine ("circleMove");
 	}
 
 	IEnumerator circleMove(){
 		for (float t = 0;;t += 0.1f){
-			Debug.Log ("t : " + t + " speed : " + speed + " t x speed = " + t*speed + " cos= " + Mathf.Cos (t * speed) + " sin= " + Mathf.Sin (t * speed));
+			//Debug.Log ("t : " + t + " speed : " + speed + " t x speed = " + t*speed + " cos= " + Mathf.Cos (t * speed) + " sin= " + Mathf.Sin (t * speed));
 
 			float x = Mathf.Cos(t * speed + deg*Mathf.Deg2Rad) * radius;
 			float y = Mathf.Sin(t * speed + deg*Mathf.Deg2Rad) * radius;
