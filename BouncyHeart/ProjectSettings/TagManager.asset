@@ -13,6 +13,7 @@ TagManager:
   - FiveKokodama
   - SixKokodama
   - Skill
+  - SkillPanel
   layers:
   - Default
   - TransparentFX

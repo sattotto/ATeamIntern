@@ -16,8 +16,9 @@ public class Skill : MonoBehaviour
     void Update()
     {
         var reload = GetComponent<Reload>();
+        var skillPanel = GetComponent<SkillPanel>();
 
-        if(kingSkill)
+        if (kingSkill)
         {
             KingTime();
             //kingSkill = true;
@@ -27,7 +28,7 @@ public class Skill : MonoBehaviour
         {
             //クリックして、オブジェクトがあったら
             GameObject obj = getClickObject();
-            if(obj != null)
+            if (obj != null)
             {
                 if (obj.tag == "Skill")
                 {
@@ -52,37 +53,38 @@ public class Skill : MonoBehaviour
                             Debug.Log("??");
                             break;
                     }
+
                 }
             }
         }
     }
 
-    // 左クリックしたオブジェクトを取得する関数(2D)
-    private GameObject getClickObject()
+// 左クリックしたオブジェクトを取得する関数(2D)
+private GameObject getClickObject()
+{
+    GameObject result = null;
+    // 左クリックされた場所のオブジェクトを取得
+    if (Input.GetMouseButtonDown(0))
     {
-        GameObject result = null;
-        // 左クリックされた場所のオブジェクトを取得
-        if (Input.GetMouseButtonDown(0))
+        Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+        if (collition2d)
         {
-            Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
-            if (collition2d)
-            {
-                result = collition2d.transform.gameObject;
-            }
+            result = collition2d.transform.gameObject;
         }
-        return result;
     }
+    return result;
+}
 
-    public void KingTime()
+public void KingTime()
+{
+    kingTime++;
+    Debug.Log(kingTime);
+
+    if (kingTime > 900)
     {
-        kingTime++;
-        Debug.Log(kingTime);
-
-        if(kingTime > 900)
-        {
-            kingSkill = false;
-            Debug.Log("TimeOver");
-        }
-    } 
+        kingSkill = false;
+        Debug.Log("TimeOver");
+    }
+} 
 }
