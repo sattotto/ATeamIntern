@@ -38,7 +38,7 @@ public class SkillPanel : MonoBehaviour
             if (position_flug || end_flug)
             {
                 Vector2 pos = GetComponent<RectTransform>().anchoredPosition;
-                pos.x -= 0.5f;
+                pos.x -= 0.8f;
                 GetComponent<RectTransform>().anchoredPosition = pos;
                 if (pos.x <= 0)
                 {
