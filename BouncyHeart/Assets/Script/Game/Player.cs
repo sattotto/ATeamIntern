@@ -33,10 +33,20 @@ public class Player : MonoBehaviour
     //アニメーション変更用変数
     int dir;
 
+    private AudioSource KingBgm;
+    private AudioSource BattleBgm;
+
+    int bgm = 0;
+    int battle = 0;
+
 
     // Use this for initialization
     void Start()
     {
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        KingBgm = audioSource[1];
+        BattleBgm = audioSource[2];
+
         // カメラオブジェクトを取得します
         GameObject obj = GameObject.Find("Main Camera");
         _mainCamera = obj.GetComponent<Camera>();
@@ -70,6 +80,35 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Skill skill = FindObjectOfType<Skill>();
+
+        if (skill.kingSkill)
+        {
+            BattleBgm.Stop();
+            battle = 0;
+
+            if (bgm == 1)
+            {
+                KingBgm.PlayOneShot(KingBgm.clip);
+                Debug.Log("music!!");
+            }
+            bgm++;
+        }
+        else
+        {
+            KingBgm.Stop();
+            bgm = 0;
+
+            if (battle == 1)
+            {
+                BattleBgm.PlayOneShot(BattleBgm.clip);
+                Debug.Log("music!!");
+            }
+            battle++;
+
+        }
+
+
         if (!isReload)
         {
             moveKeyboard();

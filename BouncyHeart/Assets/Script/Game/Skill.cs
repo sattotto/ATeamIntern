@@ -11,14 +11,14 @@ public class Skill : MonoBehaviour
     public GameObject KingPanelPrefab;
     int bgm = 0;
     private AudioSource skillUp;
-    private AudioSource KingBgm;
+    //private AudioSource KingBgm;
 
     // Use this for initialization
     void Start()
     {
         AudioSource[] audioSource = GetComponents<AudioSource>();
         skillUp = audioSource[0];
-        KingBgm = audioSource[1];
+      //  KingBgm = audioSource[1];
     }
 
     // Update is called once per frame
@@ -106,15 +106,15 @@ public class Skill : MonoBehaviour
     {
         var reload = GetComponent<Reload>();
 
-        if (bgm == 1)
-        {
-            KingBgm.PlayOneShot(KingBgm.clip);
-            Debug.Log("music!!");
-        }
+        //if (bgm == 1)
+        //{
+        //    KingBgm.PlayOneShot(KingBgm.clip);
+        //    Debug.Log("music!!");
+        //}
+        //bgm++;
 
 
         kingTime++;
-        bgm++;
         Debug.Log(kingTime);
         if(kingTime == 240)
         {
@@ -126,7 +126,7 @@ public class Skill : MonoBehaviour
         if (kingTime > 900)
         {
             kingSkill = false;
-            KingBgm.Stop();
+            //KingBgm.Stop();
 
             Debug.Log("TimeOver");
         }
