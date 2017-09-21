@@ -17,6 +17,18 @@ public class BallController : MonoBehaviour {
 		get { return _rigidbody ?? (_rigidbody = gameObject.GetComponent<Rigidbody> ()); }
 	}
 
+	public void ballType(int type, float charge, float playerDeg){
+		if (type == 0){
+			// o型
+			circleSet(2f*charge,1f,playerDeg);
+		} else {
+			Create(playerDeg, 5f);
+		}
+	}
+
+	/// <summary>
+	/// i型のぼーる発射
+	/// </summary>
 	public void Create(float direction, float speed) {
 		Vector3 v;
 		v.x = Mathf.Cos (Mathf.Deg2Rad * direction) * speed;
@@ -34,6 +46,9 @@ public class BallController : MonoBehaviour {
 
     }
 
+	/// <summary>
+	/// m型のボール発射
+	/// </summary>
 	public void setoffset(Vector3 playerpos){
 		offset = playerpos;
 		SetTarget ( new Vector3(3,0,0), 60 );

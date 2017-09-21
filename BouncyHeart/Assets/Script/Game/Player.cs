@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     float rot;
     float prevRot;
 
+    float charge = 1f;
+
     public static Vector2 vector;
 	public static Vector3 playerPos;
 
@@ -149,12 +151,15 @@ public class Player : MonoBehaviour
         // Shotスクリプトオブジェクトを取得
         BallController s = shot.GetComponent<BallController>();
         // 移動速度を設定
-        //s.Create(prevRot, 5f);
+        //s.Create(rot, 5f);
 		//s.setoffset (playerPos);
-		s.circleSet(2f,1f,rot);
+		//s.circleSet(2f,1f,rot);
 
         //打つボールを取得（配列から１つ取り出す）
         int BallId = reload.ShootBall();
+
+        s.ballType(BallId,charge,rot);
+
         //ボールのテクスチャを変更
         s.ChangeSprite(reload.BallSptite(BallId));
         //次に打つボールのセット
