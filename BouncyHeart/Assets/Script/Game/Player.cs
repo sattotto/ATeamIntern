@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     float rot;
     float prevRot;
 
-    float charge = 1f;
+    public static float charge = 1f;
 
     public static Vector2 vector;
 	public static Vector3 playerPos;
