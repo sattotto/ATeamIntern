@@ -91,19 +91,19 @@ public class Skill : MonoBehaviour
     {
         var reload = GetComponent<Reload>();
         kingTime++;
-        Debug.Log(kingTime);
-        if(kingTime == 312)
+       Debug.Log(kingTime);
+        if(kingTime == 160)
         {
             skillUp.PlayOneShot(skillUp.clip);
 
         }
-        if (kingTime == 373)
+        if (kingTime == 275)
         {
             Destroy(Ready);
             reload.KingSkill();
             reload.RenderKing();
         }
-        if (kingTime > 900)
+        if (kingTime > 875)
         {
             kingSkill = false;
             //KingBgm.Stop();
