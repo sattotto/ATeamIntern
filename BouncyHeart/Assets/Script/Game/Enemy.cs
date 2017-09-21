@@ -17,17 +17,26 @@ public class Enemy : MonoBehaviour
     //アニメーションのフラグ
     int dir = 0;
 
-	public int ENEMY_HP_MAX = Const.ENEMY_HP;
+    bool escape = false;
+    private AudioSource escapeSe;
+    int seControll = 0;
+
+    public int ENEMY_HP_MAX = Const.ENEMY_HP;
 	public int enemyHP;
 
     // Use this for initialization
     void Start()
     {
-		ENEMY_HP_MAX = Const.ENEMY_HP;
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        escapeSe = audioSource[0];
+
+        ENEMY_HP_MAX = Const.ENEMY_HP;
 		enemyHP = ENEMY_HP_MAX;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
 		target = GameObject.Find ("Player");
+
+
     }
 
     // Update is called once per frame
@@ -71,6 +80,25 @@ public class Enemy : MonoBehaviour
         if (flg == 2)
         {
             transform.position = tmp;
+        }
+
+        if (escape)
+        {
+            if (seControll == 0)
+            {
+                escapeSe.PlayOneShot(escapeSe.clip);
+            }
+            seControll++;
+            this.transform.localScale = new Vector3(this.transform.localScale.x - 0.001f, this.transform.localScale.y - 0.001f);
+            if (this.transform.localScale.x <= 0 && this.transform.localScale.y <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+
+        }
+        else
+        {
+            seControll = 0;
         }
     }
 
@@ -230,9 +258,14 @@ public class Enemy : MonoBehaviour
 		if (enemyHP <= 0) {
 			GameManager.EnemyNum -= 1;
 			GameManager.clearCheck ();
-			Destroy (this.gameObject);
-		}
-	}
+            escape = true;
+            //this.transform.localScale = new Vector3(this.transform.localScale.x - 0.01f, this.transform.localScale.y - 0.01f);
+            //if (this.transform.localScale.x <= 0 && this.transform.localScale.y <= 0)
+            //{
+            //    Destroy(this.gameObject);
+            //}
+        }
+    }
 
 	void EnemyHealed(int heal) {
 		int setHP = System.Math.Min (ENEMY_HP_MAX, enemyHP + heal);
