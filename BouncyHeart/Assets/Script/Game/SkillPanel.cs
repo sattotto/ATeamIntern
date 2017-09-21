@@ -25,6 +25,7 @@ public class SkillPanel : MonoBehaviour
 
         AudioSource[] audioSource = GetComponents<AudioSource>();
         king = audioSource[0];
+        GameManager.kingNotEffect = true;
 
     }
 
@@ -45,7 +46,7 @@ public class SkillPanel : MonoBehaviour
                 }
                 if(pos.x < -10)
                 {
-                    skill.kingNotEffect = true;
+                    GameManager.kingNotEffect = false;
                     Destroy(this.gameObject);
                 }
             }

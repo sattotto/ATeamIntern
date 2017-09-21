@@ -69,35 +69,37 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Skill skill = FindObjectOfType<Skill>();
+            Skill skill = FindObjectOfType<Skill>();
 
-        //BGM操作
-        if (skill.kingSkill)
-        {
-            BgmController.ChangeBgm(1);
-        }
-        else
-        {
-            BgmController.ChangeBgm(0);
-        }
+            //BGM操作
+            if (skill.kingSkill)
+            {
+                BgmController.ChangeBgm(1);
+            }
+            else
+            {
+                BgmController.ChangeBgm(0);
+            }
 
 
-        if (!isReload)
+        if (!GameManager.kingNotEffect)
         {
-            moveKeyboard();
+            if (!isReload)
+            {
+                moveKeyboard();
+            }
+            else
+            {
+                Invoke("flgChange", 1f);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !isReload)
+            {
+                shoot();
+            }
+            checkPlayerRotation();
+            //方向をセット
+            anim.SetInteger("dir", dir);
         }
-        else
-        {
-            Invoke("flgChange", 1f);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isReload)
-        {
-            shoot();
-        }
-        checkPlayerRotation();
-        //方向をセット
-        anim.SetInteger("dir", dir);
-
 
     }
 

@@ -42,63 +42,72 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //方向取得
-        MoveAngle();
-        //方向をセット
-        anim.SetInteger("dir", dir);
+        if (!GameManager.kingNotEffect)
+        {
+            //方向取得
+            MoveAngle();
+            //方向をセット
+            anim.SetInteger("dir", dir);
 
 
-        //衝突していなかったら
-        if (flg == 0)
-        {
-            //プレイヤーに追従する処理
-            this.transform.position=Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 1f * Time.deltaTime);
-			//Debug.Log ("target : " + target.transform.position);
-        } 
-        //衝突したら
-        if(flg == 1)
-        {
-            //ノックバックさせる
-			float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
-			float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
-			// Field内に移動しているかのチェック
-			if (dx < getField(2)) {
-				dx = getField(2);
-			} else if (dx > getField(1)) {
-				dx = getField(1);
-			}
-			if (dy > getField(0)) {
-				dy = getField(0);
-			} else if (dy < getField(3)) {
-				dy = getField(3);
-			}
-
-			transform.position = new Vector3(dx, dy, transform.position.z);
-			//Debug.Log (transform.position.z);
-            //Debug.Log("ノックバック！");
-        }
-        if (flg == 2)
-        {
-            transform.position = tmp;
-        }
-
-        if (escape)
-        {
-            if (seControll == 0)
+            //衝突していなかったら
+            if (flg == 0)
             {
-                escapeSe.PlayOneShot(escapeSe.clip);
+                //プレイヤーに追従する処理
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 1f * Time.deltaTime);
+                //Debug.Log ("target : " + target.transform.position);
             }
-            seControll++;
-            this.transform.localScale = new Vector3(this.transform.localScale.x - 0.001f, this.transform.localScale.y - 0.001f);
-            if (this.transform.localScale.x <= 0 && this.transform.localScale.y <= 0)
+            //衝突したら
+            if (flg == 1)
             {
-                Destroy(this.gameObject);
+                //ノックバックさせる
+                float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
+                float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
+                // Field内に移動しているかのチェック
+                if (dx < getField(2))
+                {
+                    dx = getField(2);
+                }
+                else if (dx > getField(1))
+                {
+                    dx = getField(1);
+                }
+                if (dy > getField(0))
+                {
+                    dy = getField(0);
+                }
+                else if (dy < getField(3))
+                {
+                    dy = getField(3);
+                }
+
+                transform.position = new Vector3(dx, dy, transform.position.z);
+                //Debug.Log (transform.position.z);
+                //Debug.Log("ノックバック！");
+            }
+            if (flg == 2)
+            {
+                transform.position = tmp;
             }
 
-        }
-        else
-        {
-            seControll = 0;
+            if (escape)
+            {
+                if (seControll == 0)
+                {
+                    escapeSe.PlayOneShot(escapeSe.clip);
+                }
+                seControll++;
+                this.transform.localScale = new Vector3(this.transform.localScale.x - 0.001f, this.transform.localScale.y - 0.001f);
+                if (this.transform.localScale.x <= 0 && this.transform.localScale.y <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
+
+            }
+            else
+            {
+                seControll = 0;
+            }
         }
     }
 

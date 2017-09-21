@@ -7,7 +7,6 @@ public class Skill : MonoBehaviour
 {
     public int kingTime = 0;
     public bool kingSkill = false;
-    public bool kingNotEffect;
     public GameObject KingPanelPrefab;
     public GameObject ReadyPanelPrefab;
 
