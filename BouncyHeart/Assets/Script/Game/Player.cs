@@ -144,34 +144,43 @@ public class Player : MonoBehaviour
         Reload reload = FindObjectOfType<Reload>();
         Skill skill = FindObjectOfType<Skill>();
 
-        shootMax -= 1;
-        if (shootMax == 0)
+        if (skill.ready)
         {
-            if (skill.kingSkill)
-            {
-                isReload = false;
-            }
-            else
-            {
-                isReload = true;
-            }
+            GameObject KingPanel = Instantiate(skill.KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
+            skill.kingSkill = true;
+            skill.ready = false;
         }
-        //Instantiate (ballPrefab, transform.position, Quaternion.identity);
-        // 弾を生成
-        Vector3 PlayerPos = transform.position;
-        Vector3 ballPos = new Vector3(PlayerPos.x + vector.x / 3, PlayerPos.y + vector.y / 3, PlayerPos.z);
-        GameObject shot = Instantiate(ballPrefab, ballPos, transform.rotation) as GameObject;
-        // Shotスクリプトオブジェクトを取得
-        BallController s = shot.GetComponent<BallController>();
-        // 移動速度を設定
-        s.Create(prevRot, 3f);
+        else
+        {
+            if (shootMax <= 0)
+            {
+                if (skill.kingSkill)
+                {
+                    isReload = false;
+                }
+                else
+                {
+                    isReload = true;
+                }
+            }
+            //Instantiate (ballPrefab, transform.position, Quaternion.identity);
+            // 弾を生成
+            Vector3 PlayerPos = transform.position;
+            Vector3 ballPos = new Vector3(PlayerPos.x + vector.x / 3, PlayerPos.y + vector.y / 3, PlayerPos.z);
+            GameObject shot = Instantiate(ballPrefab, ballPos, transform.rotation) as GameObject;
+            // Shotスクリプトオブジェクトを取得
+            BallController s = shot.GetComponent<BallController>();
+            // 移動速度を設定
+            s.Create(prevRot, 3f);
 
-        //打つボールを取得（配列から１つ取り出す）
-        int BallId = reload.ShootBall();
-        //ボールのテクスチャを変更
-        s.ChangeSprite(reload.BallSptite(BallId));
-        //次に打つボールのセット
-        reload.BallLoad();
+            //打つボールを取得（配列から１つ取り出す）
+            int BallId = reload.ShootBall();
+            //ボールのテクスチャを変更
+            s.ChangeSprite(reload.BallSptite(BallId));
+            shootMax -= 1;
+            //次に打つボールのセット
+            reload.BallLoad();
+        }
     }
 
     public static void PlayerDamaged(int damage)

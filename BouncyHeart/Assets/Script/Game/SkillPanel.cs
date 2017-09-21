@@ -37,7 +37,7 @@ public class SkillPanel : MonoBehaviour
             if (position_flug || end_flug)
             {
                 Vector2 pos = GetComponent<RectTransform>().anchoredPosition;
-                pos.x -= 5;
+                pos.x -= 0.5f;
                 GetComponent<RectTransform>().anchoredPosition = pos;
                 if (pos.x <= 0)
                 {
@@ -47,9 +47,6 @@ public class SkillPanel : MonoBehaviour
                 {
                     skill.kingNotEffect = true;
                     Destroy(this.gameObject);
-                    //flug = false;
-                    //skill_flug = true;
-                    //GetComponent<RectTransform>().anchoredPosition = start_pos;
                 }
             }
             if (!position_flug)

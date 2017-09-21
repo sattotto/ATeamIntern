@@ -9,8 +9,11 @@ public class Skill : MonoBehaviour
     public bool kingSkill = false;
     public bool kingNotEffect;
     public GameObject KingPanelPrefab;
-    int bgm = 0;
+    public GameObject ReadyPanelPrefab;
+
     private AudioSource skillUp;
+    public bool ready = false;
+    GameObject Ready;
 
     // Use this for initialization
     void Start()
@@ -46,16 +49,18 @@ public class Skill : MonoBehaviour
                     {
                         //皇：8
                         case 8:
-                            GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
-                            kingSkill = true;
-                            bgm++;
+                            ready = true;
+                            Ready = Instantiate(ReadyPanelPrefab, new Vector3(0, 0, 1), transform.rotation) as GameObject;
+                            //GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
+                            //kingSkill = true;
+                            //bgm++;
                             Debug.Log("王様");
                             break;
-                        //フロスト：9
-                        case 9:
-                            //フロストの必殺技呼び出し
-                            Debug.Log("フロスト");
-                            break;
+                        ////フロスト：9
+                        //case 9:
+                        //    //フロストの必殺技呼び出し
+                        //    Debug.Log("フロスト");
+                        //    break;
                         default:
                             Debug.Log("??");
                             break;
@@ -88,10 +93,14 @@ public class Skill : MonoBehaviour
         var reload = GetComponent<Reload>();
         kingTime++;
         Debug.Log(kingTime);
-        if (kingTime == 240)
+        if(kingTime == 312)
         {
             skillUp.PlayOneShot(skillUp.clip);
 
+        }
+        if (kingTime == 373)
+        {
+            Destroy(Ready);
             reload.KingSkill();
             reload.RenderKing();
         }

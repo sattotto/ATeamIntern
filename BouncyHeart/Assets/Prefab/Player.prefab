@@ -275,6 +275,9 @@ MonoBehaviour:
   kingNotEffect: 1
   KingPanelPrefab: {fileID: 1817026250299298, guid: ece84641b190ae545a8a8feee7414915,
     type: 2}
+  ReadyPanelPrefab: {fileID: 1181812287006550, guid: a4b40b03c1d7d4e448f3950f085cafbf,
+    type: 2}
+  ready: 0
 --- !u!114 &114325986657444268
 MonoBehaviour:
   m_ObjectHideFlags: 1
