@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     int shootMax;
     bool isReload = false;
+	private bool isCall = false;
 
     Vector3 prevPos = new Vector3(0, 0, 0);
     float rot;
@@ -48,8 +49,8 @@ public class Player : MonoBehaviour
 
 
         // 座標値を出力
-        ////Debug.Log (getScreenTopLeft ().x + ", " + getScreenTopLeft ().y);
-        ////Debug.Log (getScreenBottomRight ().x + ", " + getScreenBottomRight ().y);
+        //Debug.Log (getScreenTopLeft ().x + ", " + getScreenTopLeft ().y);
+        //Debug.Log (getScreenBottomRight ().x + ", " + getScreenBottomRight ().y);
 
         PLAYER_HP_MAX = Const.PLAYER_HP;
         playerHP = PLAYER_HP_MAX;
@@ -78,7 +79,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Invoke("flgChange", 1f);
+			if (!isCall) Invoke("flgChange", 1f);
+			isCall = true;
         }
         if (Input.GetKeyDown(KeyCode.Space) && !isReload)
         {
@@ -131,13 +133,14 @@ public class Player : MonoBehaviour
 
     void shoot()
     {
+		shootMax -= 1;
+		Debug.Log ("shoot");
+		isCall = false;
+		if (shootMax < 1)
+		{
+			isReload = true;
+		}
         Reload reload = FindObjectOfType<Reload>();
-
-        shootMax -= 1;
-        if (shootMax == 0)
-        {
-            isReload = true;
-        }
         //Instantiate (ballPrefab, transform.position, Quaternion.identity);
         // 弾を生成
         Vector3 PlayerPos = transform.position;
@@ -205,7 +208,7 @@ public class Player : MonoBehaviour
 
         if (prevRot != rot)
         {
-            //			////Debug.Log ("Angle = " + rot);
+            //Debug.Log ("Angle = " + rot);
             prevRot = rot;
             prevPos = this.transform.position;
         }
@@ -214,7 +217,7 @@ public class Player : MonoBehaviour
     void flgChange()
     {
         isReload = false;
-        shootMax = 5;
+		shootMax = Const.SHOOT_NUM;
         //配列をリセット
         //BallReset();
         //Debug.Log ("now reloarding!");
