@@ -11,14 +11,12 @@ public class Skill : MonoBehaviour
     public GameObject KingPanelPrefab;
     int bgm = 0;
     private AudioSource skillUp;
-    //private AudioSource KingBgm;
 
     // Use this for initialization
     void Start()
     {
         AudioSource[] audioSource = GetComponents<AudioSource>();
         skillUp = audioSource[0];
-      //  KingBgm = audioSource[1];
     }
 
     // Update is called once per frame
@@ -27,18 +25,9 @@ public class Skill : MonoBehaviour
         var reload = GetComponent<Reload>();
         SkillPanel skillPanel = GetComponent<SkillPanel>();
 
-        //if (kingNotEffect)
-        //{
-        //    //皇の必殺技呼び出し
-        //    reload.KingSkill();
-        //    reload.RenderKing();
-        //    kingSkill = true;
-        //    Debug.Log("王様");
-        //}
-
         if (kingSkill)
         {
-            
+
             KingTime();
             //kingSkill = true;
         }
@@ -58,17 +47,9 @@ public class Skill : MonoBehaviour
                         //皇：8
                         case 8:
                             GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
-                            //KingBgm.PlayOneShot(KingBgm.clip);
-
-                            //if (kingNotEffect)
-                            {
-                                //皇の必殺技呼び出し
-                                //reload.KingSkill();
-                                //reload.RenderKing();
-                                kingSkill = true;
-                                bgm++;
-                                Debug.Log("王様");
-                            }
+                            kingSkill = true;
+                            bgm++;
+                            Debug.Log("王様");
                             break;
                         //フロスト：9
                         case 9:
@@ -105,18 +86,9 @@ public class Skill : MonoBehaviour
     public void KingTime()
     {
         var reload = GetComponent<Reload>();
-
-        //if (bgm == 1)
-        //{
-        //    KingBgm.PlayOneShot(KingBgm.clip);
-        //    Debug.Log("music!!");
-        //}
-        //bgm++;
-
-
         kingTime++;
         Debug.Log(kingTime);
-        if(kingTime == 240)
+        if (kingTime == 240)
         {
             skillUp.PlayOneShot(skillUp.clip);
 
