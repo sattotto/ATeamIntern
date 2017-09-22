@@ -131,6 +131,7 @@ public class Enemy : MonoBehaviour
 		// tagがballなら
 		if (other.gameObject.tag == "ball") {
 			Destroy (other.gameObject);
+            anim.SetTrigger("damage");
 			EnemyDamaged (Const.BALL_ATK[0]);
 			//Debug.Log ("test");
 		}
