@@ -108,6 +108,8 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space) && !isReload)
             {
+                anim.SetTrigger("throw");
+
                 shoot();
             }
             playerPos = transform.position;
