@@ -96,7 +96,7 @@ public class Skill : MonoBehaviour
     {
         var reload = GetComponent<Reload>();
         kingTime++;
-       Debug.Log(kingTime);
+        Debug.Log(kingTime);
         if(kingTime == 160)
         {
             skillUp.PlayOneShot(skillUp.clip);
@@ -112,7 +112,7 @@ public class Skill : MonoBehaviour
         {
             kingSkill = false;
             //KingBgm.Stop();
-
+            kingTime = 0;
             Debug.Log("TimeOver");
         }
     }
