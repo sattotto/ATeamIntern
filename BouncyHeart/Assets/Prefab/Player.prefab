@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadBall: 0000000000000000000000000000000000000000
+  shootNum: 0
   Kokonoha: {fileID: 21300000, guid: d2fb22ce852df05488a38cd3648538a5, type: 3}
   Fulost: {fileID: 21300000, guid: 7881fee5e57d25d4a8710b12cd65e602, type: 3}
   Milky: {fileID: 21300000, guid: 44b77316a613cf849ab5cb3a8ac83f1b, type: 3}
@@ -274,7 +275,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d47872e318fa4fb4ea8dcc75a8509fca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef5ab49746d0edb4fa85f3480c739c5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
