@@ -38,7 +38,6 @@ public class Player : MonoBehaviour
     //アニメーション変更用変数
     int dir;
 
-
     // Use this for initialization
     void Start()
     {
@@ -75,9 +74,36 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isReload)
+            Skill skill = FindObjectOfType<Skill>();
+
+            //BGM操作
+            if (skill.kingSkill)
+            {
+                BgmController.ChangeBgm(1);
+            }
+            else
+            {
+                BgmController.ChangeBgm(0);
+            }
+
+
+        if (!GameManager.kingNotEffect)
         {
-            moveKeyboard();
+            if (!isReload)
+            {
+                moveKeyboard();
+            }
+            else
+            {
+                Invoke("flgChange", 1f);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !isReload)
+            {
+                shoot();
+            }
+            checkPlayerRotation();
+            //方向をセット
+            anim.SetInteger("dir", dir);
         }
         else
         {
@@ -143,17 +169,36 @@ public class Player : MonoBehaviour
 			isReload = true;
 		}
         Reload reload = FindObjectOfType<Reload>();
-        //Instantiate (ballPrefab, transform.position, Quaternion.identity);
-        // 弾を生成
-        Vector3 PlayerPos = transform.position;
-        Vector3 ballPos = new Vector3(PlayerPos.x + vector.x / 3, PlayerPos.y + vector.y / 3, PlayerPos.z);
-        GameObject shot = Instantiate(ballPrefab, ballPos, transform.rotation) as GameObject;
-        // Shotスクリプトオブジェクトを取得
-        BallController s = shot.GetComponent<BallController>();
-        // 移動速度を設定
-        //s.Create(rot, 5f);
-		//s.setoffset (playerPos);
-		//s.circleSet(2f,1f,rot);
+        Skill skill = FindObjectOfType<Skill>();
+
+        if (skill.ready)
+        {
+            GameObject KingPanel = Instantiate(skill.KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
+            skill.kingSkill = true;
+            skill.ready = false;
+        }
+        else
+        {
+            if (shootMax <= 0)
+            {
+                if (skill.kingSkill)
+                {
+                    isReload = false;
+                }
+                else
+                {
+                    isReload = true;
+                }
+            }
+            //Instantiate (ballPrefab, transform.position, Quaternion.identity);
+            // 弾を生成
+            Vector3 PlayerPos = transform.position;
+            Vector3 ballPos = new Vector3(PlayerPos.x + vector.x / 3, PlayerPos.y + vector.y / 3, PlayerPos.z);
+            GameObject shot = Instantiate(ballPrefab, ballPos, transform.rotation) as GameObject;
+            // Shotスクリプトオブジェクトを取得
+            BallController s = shot.GetComponent<BallController>();
+            // 移動速度を設定
+            s.Create(prevRot, 3f);
 
         //打つボールを取得（配列から１つ取り出す）
         int BallId = reload.ShootBall();
@@ -164,6 +209,7 @@ public class Player : MonoBehaviour
         s.ChangeSprite(reload.BallSptite(BallId));
         //次に打つボールのセット
         reload.BallLoad();
+        }
     }
 
     public static void PlayerDamaged(int damage)

@@ -52,13 +52,20 @@ public class Reload : MonoBehaviour
     //打ったら、配列をずらす
     public void BallLoad()
     {
+        Skill king = GetComponent<Skill>();
         shootNum += 1;
         if (shootNum > 4)
         {
-            BallReset();
+            if (king.kingSkill)
+            {
+                KingSkill();
+            }
+            else
+            {
+                BallReset();
+            }
         }
         KokodamaRender();
-        //NextRender();
 
     }
     public void BallReset()
@@ -279,11 +286,25 @@ public class Reload : MonoBehaviour
 
     }
 
+    public void KingSkill()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            reloadBall[i] = 3;
 
+            //Debug.Log(reloadBall[i]);
+        }
+        //取り出し用変数を初期化
+        shootNum = 0;
+        RenderKing();
+    }
+    public void RenderKing()
+    {
+        NextSpriteRenderer.sprite = King;
+        ThirdSpriteRenderer.sprite = King;
+        FourSpriteRenderer.sprite = King;
+        FiveSpriteRenderer.sprite = King;
+        SixSpriteRenderer.sprite = King;
 
-    //Kokonoha;
-    //Fulost;
-    //Milky;
-    //King;
-    //Ai;
+    }
 }

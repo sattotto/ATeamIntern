@@ -12,6 +12,8 @@ TagManager:
   - FourKokodama
   - FiveKokodama
   - SixKokodama
+  - Skill
+  - SkillPanel
   layers:
   - Default
   - TransparentFX
@@ -21,11 +23,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - King
+  - Frost
+  - Milky
+  - Kokonoha
+  - Ai
   - 
   - 
   - 

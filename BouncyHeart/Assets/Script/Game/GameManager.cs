@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour {
 	public static int EnemyNum;
 	public static bool isClear = false;
 
-	// Use this for initialization
-	void Start () {
+    public static bool kingNotEffect = false;
+
+    // Use this for initialization
+    void Start () {
 		Invoke("gameStart",2f);
 	}
 
