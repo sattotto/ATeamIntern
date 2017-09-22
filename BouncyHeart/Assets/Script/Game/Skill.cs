@@ -48,8 +48,11 @@ public class Skill : MonoBehaviour
                     {
                         //皇：8
                         case 8:
+                            
+                            if (!ready){
+                                Ready = Instantiate(ReadyPanelPrefab, new Vector3(0, 0, 1), transform.rotation) as GameObject;
+                            }
                             ready = true;
-                            Ready = Instantiate(ReadyPanelPrefab, new Vector3(0, 0, 1), transform.rotation) as GameObject;
                             //GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
                             //kingSkill = true;
                             //bgm++;
