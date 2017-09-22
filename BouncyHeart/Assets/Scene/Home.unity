@@ -636,9 +636,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1590439970}
   - component: {fileID: 1590439971}
+  - component: {fileID: 1590439972}
   m_Layer: 0
-  m_Name: "\u7687\u5B8C\u62102"
-  m_TagString: Untagged
+  m_Name: Charactor
+  m_TagString: Charactor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -697,3 +698,19 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+--- !u!114 &1590439972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1590439969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691ec4318018bcd4a8311bb18b0a2a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Kokonoha: {fileID: 21300000, guid: 69667aaeeb3fbdd4bb217d46dacb8b0f, type: 3}
+  Fulost: {fileID: 21300000, guid: e8c658515a8e511419f68ef416db6019, type: 3}
+  Milky: {fileID: 21300000, guid: 3d3214af02cee714ba23908309564f0d, type: 3}
+  King: {fileID: 21300000, guid: 6bf910774c08e544fb3c8b042bdfd098, type: 3}
+  Ai: {fileID: 21300000, guid: 497d63c918f19524a8313acc733162e0, type: 3}
