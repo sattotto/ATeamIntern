@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     int shootMax;
     bool isReload = false;
-	private bool isCall = false;
+    private bool isCall = false;
 
     Vector3 prevPos = new Vector3(0, 0, 0);
     float rot;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public static float charge = 1f;
 
     public static Vector2 vector;
-	public static Vector3 playerPos;
+    public static Vector3 playerPos;
 
     //Animator
     Animator anim;
@@ -74,21 +74,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            checkPlayerRotation();
-            //方向をセット
-            anim.SetInteger("dir", dir);
+        checkPlayerRotation();
+        //方向をセット
+        anim.SetInteger("dir", dir);
+        anim.SetBool("reload", isReload);
 
-            Skill skill = FindObjectOfType<Skill>();
+        Skill skill = FindObjectOfType<Skill>();
 
-            //BGM操作
-            if (skill.kingSkill)
-            {
-                BgmController.ChangeBgm(1);
-            }
-            else
-            {
-                BgmController.ChangeBgm(0);
-            }
+        //BGM操作
+        if (skill.kingSkill)
+        {
+            BgmController.ChangeBgm(1);
+        }
+        else
+        {
+            BgmController.ChangeBgm(0);
+        }
 
 
         if (!GameManager.kingNotEffect)
@@ -99,7 +100,8 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (!isCall){
+                if (!isCall)
+                {
                     Invoke("flgChange", 1f);
                 }
                 isCall = true;
@@ -153,13 +155,13 @@ public class Player : MonoBehaviour
 
     void shoot()
     {
-		shootMax -= 1;
-		Debug.Log ("shoot");
-		isCall = false;
-		if (shootMax < 1)
-		{
-			isReload = true;
-		}
+        shootMax -= 1;
+        Debug.Log("shoot");
+        isCall = false;
+        if (shootMax < 1)
+        {
+            isReload = true;
+        }
         Reload reload = FindObjectOfType<Reload>();
         Skill skill = FindObjectOfType<Skill>();
 
@@ -176,6 +178,7 @@ public class Player : MonoBehaviour
                 if (skill.kingSkill)
                 {
                     isReload = false;
+                    shootMax = Const.SHOOT_NUM;
                 }
                 else
                 {
@@ -193,7 +196,7 @@ public class Player : MonoBehaviour
             //打つボールを取得（配列から１つ取り出す）
             int BallId = reload.ShootBall();
 
-            s.ballType(BallId,charge,rot);
+            s.ballType(BallId, charge, rot);
 
             //ボールのテクスチャを変更
             s.ChangeSprite(reload.BallSptite(BallId));
@@ -258,7 +261,7 @@ public class Player : MonoBehaviour
     void flgChange()
     {
         isReload = false;
-		shootMax = Const.SHOOT_NUM;
+        shootMax = Const.SHOOT_NUM;
         //配列をリセット
         //BallReset();
         //Debug.Log ("now reloarding!");
@@ -278,7 +281,7 @@ public class Player : MonoBehaviour
         angle *= Mathf.Rad2Deg;
         angle = (angle + 360.0f) % 360.0f;
 
-       Debug.Log(angle);
+        Debug.Log(angle);
 
         //角度から向いている方向を判断し、アニメーションフラグを変更する
         if ((angle > 337.5f) || (angle < 22.5f))

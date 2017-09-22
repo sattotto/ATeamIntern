@@ -10,7 +10,7 @@ public class Reload : MonoBehaviour
     //--------------------------------------//
     //配列
     public int[] reloadBall = new int[5];
-    int shootNum = 0;
+    public int shootNum = 0;
 
     //描画用
     GameObject[] Ball;

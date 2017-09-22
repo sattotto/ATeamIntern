@@ -92,21 +92,23 @@ public class Skill : MonoBehaviour
         var reload = GetComponent<Reload>();
         kingTime++;
        Debug.Log(kingTime);
-        if(kingTime == 160)
+        if(kingTime == 100)
         {
             skillUp.PlayOneShot(skillUp.clip);
 
         }
-        if (kingTime == 275)
+        if (kingTime == 130)
         {
             Destroy(Ready);
             reload.KingSkill();
             reload.RenderKing();
         }
-        if (kingTime > 875)
+        if (kingTime > 730)
         {
             kingSkill = false;
-            //KingBgm.Stop();
+            //弾の配列を入れる
+            reload.BallReset();
+            reload.KokodamaRender();
 
             Debug.Log("TimeOver");
         }
