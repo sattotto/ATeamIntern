@@ -95,7 +95,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Invoke("flgChange", 1f);
+                if (!isCall){
+                    Invoke("flgChange", 1f);
+                }
+                isCall = true;
             }
             if (Input.GetKeyDown(KeyCode.Space) && !isReload)
             {
@@ -104,6 +107,8 @@ public class Player : MonoBehaviour
             checkPlayerRotation();
             //方向をセット
             anim.SetInteger("dir", dir);
+
+            playerPos = transform.position;
         }
 
     }
@@ -184,18 +189,16 @@ public class Player : MonoBehaviour
             GameObject shot = Instantiate(ballPrefab, ballPos, transform.rotation) as GameObject;
             // Shotスクリプトオブジェクトを取得
             BallController s = shot.GetComponent<BallController>();
-            // 移動速度を設定
-            s.Create(prevRot, 3f);
 
-        //打つボールを取得（配列から１つ取り出す）
-        int BallId = reload.ShootBall();
+            //打つボールを取得（配列から１つ取り出す）
+            int BallId = reload.ShootBall();
 
-        s.ballType(BallId,charge,rot);
+            s.ballType(BallId,charge,rot);
 
-        //ボールのテクスチャを変更
-        s.ChangeSprite(reload.BallSptite(BallId));
-        //次に打つボールのセット
-        reload.BallLoad();
+            //ボールのテクスチャを変更
+            s.ChangeSprite(reload.BallSptite(BallId));
+            //次に打つボールのセット
+            reload.BallLoad();
         }
     }
 
