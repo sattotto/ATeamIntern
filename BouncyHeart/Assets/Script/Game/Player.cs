@@ -105,19 +105,6 @@ public class Player : MonoBehaviour
             //方向をセット
             anim.SetInteger("dir", dir);
         }
-        else
-        {
-			if (!isCall) Invoke("flgChange", 1f);
-			isCall = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isReload)
-        {
-            shoot();
-        }
-        checkPlayerRotation();
-        //方向をセット
-        anim.SetInteger("dir", dir);
-		playerPos = transform.position;
 
     }
 
