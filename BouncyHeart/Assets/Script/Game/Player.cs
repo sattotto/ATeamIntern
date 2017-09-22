@@ -74,6 +74,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+            checkPlayerRotation();
+            //方向をセット
+            anim.SetInteger("dir", dir);
+
             Skill skill = FindObjectOfType<Skill>();
 
             //BGM操作
@@ -104,10 +108,6 @@ public class Player : MonoBehaviour
             {
                 shoot();
             }
-            checkPlayerRotation();
-            //方向をセット
-            anim.SetInteger("dir", dir);
-
             playerPos = transform.position;
         }
 
@@ -278,59 +278,59 @@ public class Player : MonoBehaviour
         angle *= Mathf.Rad2Deg;
         angle = (angle + 360.0f) % 360.0f;
 
-        ////Debug.Log(angle);
+       Debug.Log(angle);
 
         //角度から向いている方向を判断し、アニメーションフラグを変更する
         if ((angle > 337.5f) || (angle < 22.5f))
         {
-            //Debug.Log("右に動く");
+            Debug.Log("右に動く");
             dir = 3;
         }
         else
         {
             if ((angle >= 22.5f) && (angle <= 67.5f))
             {
-                //Debug.Log("右上に動く");
+                Debug.Log("右上に動く");
                 dir = 5;
             }
             else
             {
                 if ((angle > 67.5f) && (angle < 112.5f))
                 {
-                    //Debug.Log("上に動く");
+                    Debug.Log("上に動く");
                     dir = 0;
                 }
                 else
                 {
                     if ((angle > 112.5f) && (angle < 157.5f))
                     {
-                        //Debug.Log("左上に動く");
+                        Debug.Log("左上に動く");
                         dir = 4;
                     }
                     else
                     {
                         if ((angle > 157.5f) && (angle < 202.5f))
                         {
-                            //Debug.Log("左に動く");
+                            Debug.Log("左に動く");
                             dir = 2;
                         }
                         else
                         {
                             if ((angle > 202.5f) && (angle < 247.5f))
                             {
-                                //Debug.Log("左下に動く");
+                                Debug.Log("左下に動く");
                                 dir = 6;
                             }
                             else
                             {
                                 if ((angle > 247.5f) && (angle < 292.5f))
                                 {
-                                    //Debug.Log("下に動く");
+                                    Debug.Log("下に動く");
                                     dir = 1;
                                 }
                                 else
                                 {
-                                    //Debug.Log("右下に動く");
+                                    Debug.Log("右下に動く");
                                     dir = 7;
                                 }
 
