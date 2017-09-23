@@ -6,5 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scene/Home.unity
+    guid: 57cfbd611071c3d47bc099314fe67023
+  - enabled: 1
+    path: Assets/Scene/QuestSelect.unity
+    guid: 2fd5e50c150f82546a52135642622199
+  - enabled: 1
+    path: Assets/Scene/Aria.unity
+    guid: cc634a8e81d3cc44fa20e0fab0f720a2
+  - enabled: 1
+    path: Assets/Scene/Friend.unity
+    guid: 42fe4ef2909e1fd4f8e3854f5e13343f
+  - enabled: 1
+    path: Assets/Scene/Check.unity
+    guid: 8d303e7aa0e7d8744a1902af7b86457c
+  - enabled: 1
     path: Assets/Scene/Game.unity
     guid: 8deaccd2d47b04855a32aa1d958a0b25
+  - enabled: 1
+    path: Assets/Scene/Result.unity
+    guid: 66fb16c96267e7149a184d2427444c42
