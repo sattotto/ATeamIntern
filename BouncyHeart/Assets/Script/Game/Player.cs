@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private bool isCall = false;
 
     Vector3 prevPos = new Vector3(0, 0, 0);
+    Vector2 movePos;
     float rot;
     float prevRot;
 
@@ -122,18 +123,22 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow) && fieldLeft < transform.position.x)
         {
             transform.Translate(-Const.SPEED[GameSpeedButton.speedCount], 0, 0);
+            movePos += new Vector2(-1, 0);
         }
         if (Input.GetKey(KeyCode.RightArrow) && fieldRight > transform.position.x)
         {
             transform.Translate(Const.SPEED[GameSpeedButton.speedCount], 0, 0);
+            movePos += new Vector2(1, 0);
         }
         if (Input.GetKey(KeyCode.UpArrow) && fieldTop > transform.position.y)
         {
             transform.Translate(0, Const.SPEED[GameSpeedButton.speedCount], 0);
+            movePos += new Vector2(0, 1);
         }
         if (Input.GetKey(KeyCode.DownArrow) && fieldBottom < transform.position.y)
         {
             transform.Translate(0, -Const.SPEED[GameSpeedButton.speedCount], 0);
+            movePos += new Vector2(0, -1);
         }
     }
 
@@ -242,11 +247,11 @@ public class Player : MonoBehaviour
         float yy = prevPos.y - this.transform.position.y;
         Vector2 move_vec = new Vector2(xx, yy).normalized;
 
+        Debug.Log(move_vec);
+
         //アニメーション用
         MoveAngle(move_vec);
-
-        ////Debug.Log (vector);
-
+        Debug.Log("move_vec = " + move_vec + ": prevMoveVec = " + movePos);
         rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;
 
         if (rot > 180) rot -= 360;
@@ -255,6 +260,11 @@ public class Player : MonoBehaviour
         if (prevRot != rot)
         {
             //Debug.Log ("Angle = " + rot);
+            prevRot = rot;
+            prevPos = this.transform.position;
+        }
+        if (move_vec != movePos){
+            movePos = move_vec;
             prevRot = rot;
             prevPos = this.transform.position;
         }
@@ -283,59 +293,59 @@ public class Player : MonoBehaviour
         angle *= Mathf.Rad2Deg;
         angle = (angle + 360.0f) % 360.0f;
 
-        Debug.Log(angle);
+       // Debug.Log(angle);
 
         //角度から向いている方向を判断し、アニメーションフラグを変更する
         if ((angle > 337.5f) || (angle < 22.5f))
         {
-            Debug.Log("右に動く");
+            //Debug.Log("右に動く");
             dir = 3;
         }
         else
         {
             if ((angle >= 22.5f) && (angle <= 67.5f))
             {
-                Debug.Log("右上に動く");
+                //Debug.Log("右上に動く");
                 dir = 5;
             }
             else
             {
                 if ((angle > 67.5f) && (angle < 112.5f))
                 {
-                    Debug.Log("上に動く");
+                    //Debug.Log("上に動く");
                     dir = 0;
                 }
                 else
                 {
                     if ((angle > 112.5f) && (angle < 157.5f))
                     {
-                        Debug.Log("左上に動く");
+                        //Debug.Log("左上に動く");
                         dir = 4;
                     }
                     else
                     {
                         if ((angle > 157.5f) && (angle < 202.5f))
                         {
-                            Debug.Log("左に動く");
+                            //Debug.Log("左に動く");
                             dir = 2;
                         }
                         else
                         {
                             if ((angle > 202.5f) && (angle < 247.5f))
                             {
-                                Debug.Log("左下に動く");
+                                //Debug.Log("左下に動く");
                                 dir = 6;
                             }
                             else
                             {
                                 if ((angle > 247.5f) && (angle < 292.5f))
                                 {
-                                    Debug.Log("下に動く");
+                                    //Debug.Log("下に動く");
                                     dir = 1;
                                 }
                                 else
                                 {
-                                    Debug.Log("右下に動く");
+                                    //Debug.Log("右下に動く");
                                     dir = 7;
                                 }
 
