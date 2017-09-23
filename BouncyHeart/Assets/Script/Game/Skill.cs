@@ -43,28 +43,33 @@ public class Skill : MonoBehaviour
                 if (obj.tag == "Skill")
                 {
                     Debug.Log("skill");
-
-                    switch (obj.layer)
+                    if (!kingSkill)
                     {
-                        //皇：8
-                        case 8:
-                            ready = true;
-                            Ready = Instantiate(ReadyPanelPrefab, new Vector3(0, 0, 1), transform.rotation) as GameObject;
-                            //GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
-                            //kingSkill = true;
-                            //bgm++;
-                            Debug.Log("王様");
-                            break;
-                        ////フロスト：9
-                        //case 9:
-                        //    //フロストの必殺技呼び出し
-                        //    Debug.Log("フロスト");
-                        //    break;
-                        default:
-                            Debug.Log("??");
-                            break;
-                    }
+                        switch (obj.layer)
+                        {
+                            //皇：8
+                            case 8:
 
+                                if (!ready)
+                                {
+                                    Ready = Instantiate(ReadyPanelPrefab, new Vector3(0, 0, 1), transform.rotation) as GameObject;
+                                }
+                                ready = true;
+                                //GameObject KingPanel = Instantiate(KingPanelPrefab, new Vector3(50, 0, 1), transform.rotation) as GameObject;
+                                //kingSkill = true;
+                                //bgm++;
+                                Debug.Log("王様");
+                                break;
+                            ////フロスト：9
+                            //case 9:
+                            //    //フロストの必殺技呼び出し
+                            //    Debug.Log("フロスト");
+                            //    break;
+                            default:
+                                Debug.Log("??");
+                                break;
+                        }
+                    }
                 }
             }
         }
@@ -91,8 +96,8 @@ public class Skill : MonoBehaviour
     {
         var reload = GetComponent<Reload>();
         kingTime++;
-       Debug.Log(kingTime);
-        if(kingTime == 100)
+        Debug.Log(kingTime);
+        if(kingTime == 160)
         {
             skillUp.PlayOneShot(skillUp.clip);
 
@@ -106,6 +111,8 @@ public class Skill : MonoBehaviour
         if (kingTime > 730)
         {
             kingSkill = false;
+            //KingBgm.Stop();
+            kingTime = 0;
             //弾の配列を入れる
             reload.BallReset();
             reload.KokodamaRender();
