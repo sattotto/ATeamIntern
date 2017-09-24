@@ -15,6 +15,15 @@ TagManager:
   - Skill
   - SkillPanel
   - Charactor
+  - HomeBotton
+  - QuestBotton
+  - return
+  - AriaBotton
+  - FriendBotton
+  - BattleBotton
+  - ResultHome
+  - ResultOk
+  - ResultReplay
   layers:
   - Default
   - TransparentFX

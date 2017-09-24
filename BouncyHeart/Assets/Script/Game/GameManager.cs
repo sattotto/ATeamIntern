@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour {
 	
@@ -28,8 +30,9 @@ public class GameManager : MonoBehaviour {
 		}
 		if (isClear) {
 			Debug.Log ("game clear!");
-		}
-	}
+            SceneManager.LoadScene("Result");
+        }
+    }
 
 	void gameStart(){
 		for (int i = 0; i < Const.ENEMY_NUM [0]; i++) {
