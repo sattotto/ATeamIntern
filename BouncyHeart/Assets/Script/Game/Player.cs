@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
         if(transform.position.y < fieldTop && y > 0){
             transform.position += (Vector3.up * y) * Time.deltaTime;
         }
-
+        movePos = new Vector2(x, y);
     }
 
     private Vector3 getScreenTopLeft()
