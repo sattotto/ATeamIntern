@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
@@ -97,7 +97,8 @@ public class Player : MonoBehaviour
         {
             if (!isReload)
             {
-                moveKeyboard();
+                //moveKeyboard();
+                moveTouch();
             }
             else
             {
@@ -140,6 +141,25 @@ public class Player : MonoBehaviour
             transform.Translate(0, -Const.SPEED[GameSpeedButton.speedCount], 0);
             movePos += new Vector2(0, -1);
         }
+    }
+
+    void moveTouch(){
+        
+        var x = CrossPlatformInputManager.GetAxis("Horizontal");
+        var y = CrossPlatformInputManager.GetAxis("Vertical");
+		if (fieldLeft < transform.position.x && x < 0){
+            transform.position += (Vector3.right * x) * Time.deltaTime;
+		}
+        if (transform.position.x < fieldRight && x > 0){
+            transform.position += (Vector3.right * x) * Time.deltaTime;
+        }
+        if (fieldBottom < transform.position.y && y < 0){
+            transform.position += (Vector3.up * y) * Time.deltaTime;
+        }
+        if(transform.position.y < fieldTop && y > 0){
+            transform.position += (Vector3.up * y) * Time.deltaTime;
+        }
+
     }
 
     private Vector3 getScreenTopLeft()
