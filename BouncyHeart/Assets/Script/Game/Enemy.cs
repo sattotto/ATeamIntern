@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Enemy : MonoBehaviour
     public int ENEMY_HP_MAX = Const.ENEMY_HP;
 	public int enemyHP;
 
+    private Slider _HPBar;
+
     // Use this for initialization
     void Start()
     {
@@ -36,7 +39,10 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
 		target = GameObject.Find ("Player");
 
-
+		_HPBar = transform.FindChild("EnemyHPBarSlider").GetComponent<Slider>();
+        _HPBar.maxValue = enemyHP;
+        _HPBar.value = enemyHP;
+		Debug.Log("Child is: " + _HPBar.name);
     }
 
     // Update is called once per frame
@@ -284,6 +290,7 @@ public class Enemy : MonoBehaviour
 
 	void setEnemyHP(int HP){
 		enemyHP = HP;
+        _HPBar.value = enemyHP;
 		//Debug.Log (enemyHP);
 	}
 }
