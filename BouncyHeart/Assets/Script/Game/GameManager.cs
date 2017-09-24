@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject EnemyPrefab;
 	public GameObject PlayerPrefab;
 
+    private GameObject player;
+
 	public static int EnemyNum;
 	public static bool isClear = false;
 
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        setupStage();
 		Invoke("gameStart",2f);
 	}
 
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour {
 		}
 		if (isClear) {
 			Debug.Log ("game clear!");
+            Destroy(player);
             SceneManager.LoadScene("Result");
         }
     }
@@ -38,9 +42,15 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < Const.ENEMY_NUM [0]; i++) {
 			enemySpawn (Const.ENEMY_POS, i);
 		}
-		playerSpawn ();
-		EnemyNum = Const.ENEMY_NUM[0];
+        playerSpawn();
 	}
+
+    void setupStage(){
+        isClear = false;
+        EnemyNum = Const.ENEMY_NUM[0];
+        gameOver = false;
+        kingNotEffect = false;
+    }
 
 	void enemySpawn(Vector3 enemypos, int i){
 
@@ -52,7 +62,7 @@ public class GameManager : MonoBehaviour {
 
 	void playerSpawn(){
 		Vector3 playerpos = new Vector3 (0, 0, 0);
-		GameObject player = Instantiate (PlayerPrefab, playerpos, transform.rotation) as GameObject;
+        player = Instantiate (PlayerPrefab, playerpos, transform.rotation) as GameObject;
 		player.transform.parent = this.transform;
 		player.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 		player.name = PlayerPrefab.name;

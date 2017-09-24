@@ -68,7 +68,8 @@ public class Player : MonoBehaviour
         reload.KokodamaRender();
         //NextRender();
 
-
+        isCall = false;
+        isReload = false;
 
     }
 

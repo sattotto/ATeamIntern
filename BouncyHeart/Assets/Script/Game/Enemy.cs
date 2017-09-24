@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     //Animator
     Animator anim;
 
+    bool isDead = false;
 
     //アニメーションのフラグ
     int dir = 0;
@@ -43,6 +44,8 @@ public class Enemy : MonoBehaviour
         _HPBar.maxValue = enemyHP;
         _HPBar.value = enemyHP;
 		Debug.Log("Child is: " + _HPBar.name);
+
+        escape = false;
     }
 
     // Update is called once per frame
@@ -271,10 +274,11 @@ public class Enemy : MonoBehaviour
 
 	void EnemyDamaged(int damage){
 		setEnemyHP (enemyHP - damage);
-		if (enemyHP <= 0) {
+        if (enemyHP <= 0 && !isDead) {
 			GameManager.EnemyNum -= 1;
 			GameManager.clearCheck ();
             escape = true;
+            isDead = true;
             //this.transform.localScale = new Vector3(this.transform.localScale.x - 0.01f, this.transform.localScale.y - 0.01f);
             //if (this.transform.localScale.x <= 0 && this.transform.localScale.y <= 0)
             //{
