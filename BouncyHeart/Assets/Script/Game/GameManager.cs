@@ -32,19 +32,6 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("game clear!");
             SceneManager.LoadScene("Result");
         }
-
-        if (Input.GetMouseButton(0))
-        {
-            //クリックして、オブジェクトがあったら
-            GameObject obj = getClickObject();
-            if (obj != null)
-            {
-                if (obj.name == "TapZone")
-                {
-                    Debug.Log("test");
-                }
-            }
-        }
 	}
 
 	void gameStart(){
@@ -77,20 +64,4 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	// 左クリックしたオブジェクトを取得する関数(2D)
-	private GameObject getClickObject()
-	{
-		GameObject result = null;
-		// 左クリックされた場所のオブジェクトを取得
-		if (Input.GetMouseButtonDown(0))
-		{
-			Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
-			if (collition2d)
-			{
-				result = collition2d.transform.gameObject;
-			}
-		}
-		return result;
-	}
 }

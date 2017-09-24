@@ -108,12 +108,21 @@ public class Player : MonoBehaviour
                 }
                 isCall = true;
             }
-            if (Input.GetKeyDown(KeyCode.Space) && !isReload)
-            {
-                anim.SetTrigger("throw");
 
-                shoot();
-            }
+			if (Input.GetMouseButton(0) && !isReload)
+			{
+				//クリックして、オブジェクトがあったら
+				GameObject obj = getClickObject();
+				if (obj != null)
+				{
+					if (obj.name == "TapZone")
+					{
+						anim.SetTrigger("throw");
+
+						shoot();
+					}
+				}
+			}
             playerPos = transform.position;
         }
 
@@ -379,4 +388,20 @@ public class Player : MonoBehaviour
         }
 
     }
+	// 左クリックしたオブジェクトを取得する関数(2D)
+	private GameObject getClickObject()
+	{
+		GameObject result = null;
+		// 左クリックされた場所のオブジェクトを取得
+		if (Input.GetMouseButtonDown(0))
+		{
+			Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+			if (collition2d)
+			{
+				result = collition2d.transform.gameObject;
+			}
+		}
+		return result;
+	}
 }
