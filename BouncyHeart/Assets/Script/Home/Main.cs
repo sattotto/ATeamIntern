@@ -27,7 +27,6 @@ public class Main : MonoBehaviour {
         CharaSpriteRenderer = Chara[0].GetComponent<SpriteRenderer>();
 
         charaId = Random.Range(0, 4);
-
         Debug.Log(charaId);
         switch (charaId)
         {

@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
 		target = GameObject.Find ("Player");
 
-		_HPBar = transform.FindChild("EnemyHPBarSlider").GetComponent<Slider>();
+		_HPBar = transform.Find("EnemyHPBarSlider").GetComponent<Slider>();
         _HPBar.maxValue = enemyHP;
         _HPBar.value = enemyHP;
 		Debug.Log("Child is: " + _HPBar.name);
