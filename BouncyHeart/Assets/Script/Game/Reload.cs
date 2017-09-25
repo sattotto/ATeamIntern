@@ -37,9 +37,16 @@ public class Reload : MonoBehaviour
     public Sprite None;
 
 
+    private AudioSource kingReload;
+    private AudioSource normalReload;
+
+
     // Use this for initialization
     void Start()
     {
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        kingReload = audioSource[1];
+        normalReload = audioSource[2];
     }
 
     // Update is called once per frame
@@ -58,10 +65,12 @@ public class Reload : MonoBehaviour
         {
             if (king.kingSkill)
             {
+                kingReload.PlayOneShot(kingReload.clip);
                 KingSkill();
             }
             else
             {
+                normalReload.PlayOneShot(normalReload.clip);
                 BallReset();
             }
         }
