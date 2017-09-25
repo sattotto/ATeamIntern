@@ -173,11 +173,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadBall: 0000000000000000000000000000000000000000
   shootNum: 0
-  Kokonoha: {fileID: 21300000, guid: d2fb22ce852df05488a38cd3648538a5, type: 3}
-  Fulost: {fileID: 21300000, guid: 7881fee5e57d25d4a8710b12cd65e602, type: 3}
-  Milky: {fileID: 21300000, guid: 44b77316a613cf849ab5cb3a8ac83f1b, type: 3}
-  King: {fileID: 21300000, guid: d907f9bc2c219d043b6f28d3e979f5d0, type: 3}
-  Ai: {fileID: 21300000, guid: e7826d37da366a549b915244a4d57f5e, type: 3}
+  Kokonoha: {fileID: 21300000, guid: 580c35b29710f2f4e9c773ae0a566980, type: 3}
+  Fulost: {fileID: 21300000, guid: a3404fa9bfe4a0244803cb66e96646fd, type: 3}
+  Milky: {fileID: 21300000, guid: 24cf2ff7362e9834f940d67fd43a2da2, type: 3}
+  King: {fileID: 21300000, guid: 7addd5eb2b34373449bffa77e2e833a8, type: 3}
+  Ai: {fileID: 21300000, guid: 2f54e02351418f64ba6329638462a089, type: 3}
   None: {fileID: 21300000, guid: 897a1fc61fcb8264d8495abe4c78c602, type: 3}
 --- !u!114 &114312435144869248
 MonoBehaviour:
