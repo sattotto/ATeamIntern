@@ -105,6 +105,10 @@ public class Player : MonoBehaviour
                 nextTime += interval;
             }
         }
+        if(!skill.ready)
+        {
+            GetComponent<Renderer>().enabled = true;
+        }
 
         if (!GameManager.kingNotEffect)
         {
