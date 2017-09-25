@@ -210,9 +210,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 1077537667969936, guid: 31a9713f2b6d645eca32d7d3a1c81fb6, type: 2}
   fieldTop: 4
-  fieldBottom: -1.75
+  fieldBottom: -1.35
   fieldLeft: -2.5
   fieldRight: 2.5
+  interval: 0.0001
 --- !u!136 &136462071816358798
 CapsuleCollider:
   m_ObjectHideFlags: 1
