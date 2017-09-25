@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
             if (flg == 0)
             {
                 //プレイヤーに追従する処理
-                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 1f * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 0.3f * Time.deltaTime);
                 //Debug.Log ("target : " + target.transform.position);
             }
             //衝突したら
