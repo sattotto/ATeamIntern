@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     //アニメーション変更用変数
     int dir;
 
+    private float nextTime;
+    public float interval = 0.0001f;	// 点滅周期
     // Use this for initialization
     void Start()
     {
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
 
+        nextTime = Time.time;
 
         // 座標値を出力
         //Debug.Log (getScreenTopLeft ().x + ", " + getScreenTopLeft ().y);
@@ -93,6 +96,15 @@ public class Player : MonoBehaviour
             BgmController.ChangeBgm(0);
         }
 
+        if (skill.ready)
+        {
+            if (Time.time > nextTime)
+            {
+                GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
+
+                nextTime += interval;
+            }
+        }
 
         if (!GameManager.kingNotEffect)
         {
@@ -264,7 +276,8 @@ public class Player : MonoBehaviour
             prevRot = rot;
             prevPos = this.transform.position;
         }
-        if (move_vec != movePos){
+        if (move_vec != movePos)
+        {
             movePos = move_vec;
             prevRot = rot;
             prevPos = this.transform.position;
@@ -294,7 +307,7 @@ public class Player : MonoBehaviour
         angle *= Mathf.Rad2Deg;
         angle = (angle + 360.0f) % 360.0f;
 
-       // Debug.Log(angle);
+        // Debug.Log(angle);
 
         //角度から向いている方向を判断し、アニメーションフラグを変更する
         if ((angle > 337.5f) || (angle < 22.5f))
