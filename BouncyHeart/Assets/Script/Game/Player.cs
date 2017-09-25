@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
@@ -38,6 +38,9 @@ public class Player : MonoBehaviour
 
     //アニメーション変更用変数
     int dir;
+
+    bool push = false;
+    bool push_tmp = false;
 
     private float nextTime;
     public float interval = 0.0001f;	// 点滅周期
@@ -114,7 +117,8 @@ public class Player : MonoBehaviour
         {
             if (!isReload)
             {
-                moveKeyboard();
+                //moveKeyboard();
+                moveTouch();
             }
             else
             {
@@ -124,11 +128,25 @@ public class Player : MonoBehaviour
                 }
                 isCall = true;
             }
-            if (Input.GetKeyDown(KeyCode.Space) && !isReload)
-            {
-                anim.SetTrigger("throw");
-
-                shoot();
+            push_tmp = false;
+			if (Input.GetMouseButton(0) && !isReload)
+			{
+				//クリックして、オブジェクトがあったら
+				GameObject obj = getClickObject();
+                push_tmp = true;
+				if (obj != null)
+				{
+					if (obj.name == "TapZone")
+					{
+                        PushDown();
+					}
+				}
+			}
+            if (push_tmp){
+                chargeGauge();
+            }
+            if (!push_tmp && push){
+                PushUp();
             }
             playerPos = transform.position;
         }
@@ -157,6 +175,25 @@ public class Player : MonoBehaviour
             transform.Translate(0, -Const.SPEED[GameSpeedButton.speedCount], 0);
             movePos += new Vector2(0, -1);
         }
+    }
+
+    void moveTouch(){
+        
+        var x = CrossPlatformInputManager.GetAxis("Horizontal");
+        var y = CrossPlatformInputManager.GetAxis("Vertical");
+		if (fieldLeft < transform.position.x && x < 0){
+            transform.position += (Vector3.right * x) * Time.deltaTime;
+		}
+        if (transform.position.x < fieldRight && x > 0){
+            transform.position += (Vector3.right * x) * Time.deltaTime;
+        }
+        if (fieldBottom < transform.position.y && y < 0){
+            transform.position += (Vector3.up * y) * Time.deltaTime;
+        }
+        if(transform.position.y < fieldTop && y > 0){
+            transform.position += (Vector3.up * y) * Time.deltaTime;
+        }
+        movePos = new Vector2(x, y);
     }
 
     private Vector3 getScreenTopLeft()
@@ -249,7 +286,7 @@ public class Player : MonoBehaviour
     public static void setPlayerHP(int HP)
     {
         playerHP = HP;
-        ////Debug.Log (playerHP);
+        //Debug.Log (playerHP);
     }
 
     void checkPlayerRotation()
@@ -376,5 +413,41 @@ public class Player : MonoBehaviour
             }
         }
 
+    }
+	// 左クリックしたオブジェクトを取得する関数(2D)
+	private GameObject getClickObject()
+	{
+		GameObject result = null;
+		// 左クリックされた場所のオブジェクトを取得
+		if (Input.GetMouseButtonDown(0))
+		{
+			Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+			if (collition2d)
+			{
+				result = collition2d.transform.gameObject;
+			}
+		}
+		return result;
+	}
+
+	public void PushDown()
+	{
+        Debug.Log("push down!");
+		push = true;
+	}
+
+	public void PushUp()
+	{
+        
+        push = false;
+        anim.SetTrigger("throw");
+        Debug.Log("push up! " + charge);
+        shoot();
+        charge = 1;
+	}
+
+    public void chargeGauge(){
+        charge += 0.01f;
     }
 }

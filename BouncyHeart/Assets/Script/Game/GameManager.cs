@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
             Destroy(player);
             SceneManager.LoadScene("Result");
         }
-    }
+	}
 
 	void gameStart(){
 		for (int i = 0; i < Const.ENEMY_NUM [0]; i++) {
@@ -73,4 +73,5 @@ public class GameManager : MonoBehaviour {
 			isClear = true;
 		}
 	}
+
 }
