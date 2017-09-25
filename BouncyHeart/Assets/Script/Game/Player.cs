@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
     //アニメーション変更用変数
     int dir;
 
+    bool push = false;
+    bool push_tmp = false;
+
     // Use this for initialization
     void Start()
     {
@@ -108,21 +111,26 @@ public class Player : MonoBehaviour
                 }
                 isCall = true;
             }
-
+            push_tmp = false;
 			if (Input.GetMouseButton(0) && !isReload)
 			{
 				//クリックして、オブジェクトがあったら
 				GameObject obj = getClickObject();
+                push_tmp = true;
 				if (obj != null)
 				{
 					if (obj.name == "TapZone")
 					{
-						anim.SetTrigger("throw");
-
-						shoot();
+                        PushDown();
 					}
 				}
 			}
+            if (push_tmp){
+                chargeGauge();
+            }
+            if (!push_tmp && push){
+                PushUp();
+            }
             playerPos = transform.position;
         }
 
@@ -261,7 +269,7 @@ public class Player : MonoBehaviour
     public static void setPlayerHP(int HP)
     {
         playerHP = HP;
-        ////Debug.Log (playerHP);
+        //Debug.Log (playerHP);
     }
 
     void checkPlayerRotation()
@@ -404,4 +412,24 @@ public class Player : MonoBehaviour
 		}
 		return result;
 	}
+
+	public void PushDown()
+	{
+        Debug.Log("push down!");
+		push = true;
+	}
+
+	public void PushUp()
+	{
+        
+        push = false;
+        anim.SetTrigger("throw");
+        Debug.Log("push up! " + charge);
+        shoot();
+        charge = 1;
+	}
+
+    public void chargeGauge(){
+        charge += 0.01f;
+    }
 }
