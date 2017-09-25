@@ -22,7 +22,7 @@ public class BallController : MonoBehaviour {
 			// o型
 			circleSet(2f*charge,1f,playerDeg);
 		} else {
-			Create(playerDeg, 5f);
+            Create(playerDeg, 5f*charge);
 		}
 	}
 

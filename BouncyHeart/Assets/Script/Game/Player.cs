@@ -193,7 +193,11 @@ public class Player : MonoBehaviour
         if(transform.position.y < fieldTop && y > 0){
             transform.position += (Vector3.up * y) * Time.deltaTime;
         }
-        movePos = new Vector2(x, y);
+        if(x != 0 && y != 0){
+            movePos = new Vector2(x, y);
+        }
+
+
     }
 
     private Vector3 getScreenTopLeft()
@@ -295,7 +299,6 @@ public class Player : MonoBehaviour
         float y = this.transform.position.y - prevPos.y;
 
         Vector2 vec = new Vector2(x, y).normalized;
-        vector = vec;
 
         float xx = prevPos.x - this.transform.position.x;
         float yy = prevPos.y - this.transform.position.y;
@@ -304,22 +307,15 @@ public class Player : MonoBehaviour
         Debug.Log(move_vec);
 
         //アニメーション用
-        MoveAngle(move_vec);
-        Debug.Log("move_vec = " + move_vec + ": prevMoveVec = " + movePos);
-        rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;
+        MoveAngle(movePos);
+        //Debug.Log("move_vec = " + move_vec + ": prevMoveVec = " + movePos);
+        rot = Mathf.Atan2(movePos.y, movePos.x) * 180 / Mathf.PI;
 
         if (rot > 180) rot -= 360;
         if (rot < -180) rot += 360;
 
         if (prevRot != rot)
         {
-            //Debug.Log ("Angle = " + rot);
-            prevRot = rot;
-            prevPos = this.transform.position;
-        }
-        if (move_vec != movePos)
-        {
-            movePos = move_vec;
             prevRot = rot;
             prevPos = this.transform.position;
         }
@@ -348,7 +344,7 @@ public class Player : MonoBehaviour
         angle *= Mathf.Rad2Deg;
         angle = (angle + 360.0f) % 360.0f;
 
-        // Debug.Log(angle);
+        Debug.Log(angle);
 
         //角度から向いている方向を判断し、アニメーションフラグを変更する
         if ((angle > 337.5f) || (angle < 22.5f))
