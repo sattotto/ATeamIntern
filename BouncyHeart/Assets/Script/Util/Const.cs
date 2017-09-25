@@ -29,8 +29,8 @@ public class Const : MonoBehaviour {
 
 	// index: 現在のステージ
 	// 中身: ステージでの出現敵数
-	public static int[] ENEMY_NUM = { 3 };
+	public static int[] ENEMY_NUM = { 2 };
 	// ステージごとの敵の位置
-	public static float[] ENEMY_POS_X = { -1, 0, 1 };
-	public static float[] ENEMY_POS_Y = { 0, 0.5f, 0 };
+	public static float[] ENEMY_POS_X = { -1, 1 };
+	public static float[] ENEMY_POS_Y = { 0, 0 };
 }
