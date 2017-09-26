@@ -170,6 +170,10 @@ public class Player : MonoBehaviour
                 PushUp();
             }
             playerPos = transform.position;
+			if (skill.kingSkill)
+			{
+                charge = 2f;
+			}
         }
 
     }
@@ -520,6 +524,8 @@ public class Player : MonoBehaviour
 	}
 
     public void chargeGauge(){
-        charge += 0.01f;
+        if (charge < 2f){
+            charge += 0.01f;
+        }
     }
 }
