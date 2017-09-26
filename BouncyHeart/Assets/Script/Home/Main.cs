@@ -33,8 +33,8 @@ public class Main : MonoBehaviour {
         // このobjectのSpriteRendererを取得
         CharaSpriteRenderer = Chara[0].GetComponent<SpriteRenderer>();
 
-        //charaId = Random.Range(0, 5);
-        charaId = 4;
+        charaId = Random.Range(0, 5);
+        //charaId = 4;
         Debug.Log(charaId);
         switch (charaId)
         {
