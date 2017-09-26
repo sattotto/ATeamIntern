@@ -68,7 +68,7 @@ public class MainSoundScript : MonoBehaviour
                 {
                     clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene(currentSceneIndex - 1);
-                    if(currentSceneIndex - 1 == 0)
+                    if(currentSceneIndex - 1 == 1)
                     {
                         Destroy(this.gameObject);
                     }
