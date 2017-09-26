@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
                     escapeSe.PlayOneShot(escapeSe.clip);
                 }
                 seControll++;
-                this.transform.localScale = new Vector3(this.transform.localScale.x - 0.001f, this.transform.localScale.y - 0.001f);
+                this.transform.localScale = new Vector3(this.transform.localScale.x - 0.02f, this.transform.localScale.y - 0.02f);
                 if (this.transform.localScale.x <= 0 && this.transform.localScale.y <= 0)
                 {
                     Destroy(this.gameObject);
