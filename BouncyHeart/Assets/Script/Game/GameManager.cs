@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour {
 		Vector3 playerpos = new Vector3 (0, 0, 0);
         player = Instantiate (PlayerPrefab, playerpos, transform.rotation) as GameObject;
 		player.transform.parent = this.transform;
-		player.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+		player.transform.localScale = new Vector3(1f, 1f, 1f);
 		player.name = PlayerPrefab.name;
 	}
 
