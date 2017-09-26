@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     GameObject target;
     public int flg = 0;
     public Vector3 tmp;
-    float knockBackSpeed = 0.5f;
+    float knockBackSpeed = 0.15f;
     Vector3 knockBackDirection = new Vector3(0, 0, 0);
 
     //Animator
