@@ -20,11 +20,18 @@ public class Enemy : MonoBehaviour
     int dir = 0;
 
     bool escape = false;
+    bool walk = false;
     private AudioSource escapeSe;
+    private AudioSource walkSe;
+    private AudioSource damageSe;
+
+    public float timeOut = 30;
+    private float timeElapsed;
+
     int seControll = 0;
 
     public int ENEMY_HP_MAX = Const.ENEMY_HP;
-	public int enemyHP;
+    public int enemyHP;
 
     private Slider _HPBar;
 
@@ -33,17 +40,19 @@ public class Enemy : MonoBehaviour
     {
         AudioSource[] audioSource = GetComponents<AudioSource>();
         escapeSe = audioSource[0];
+        walkSe = audioSource[1];
+        damageSe = audioSource[2];
 
         ENEMY_HP_MAX = Const.ENEMY_HP;
-		enemyHP = ENEMY_HP_MAX;
+        enemyHP = ENEMY_HP_MAX;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
-		target = GameObject.Find ("Player");
+        target = GameObject.Find("Player");
 
-		_HPBar = transform.Find("EnemyHPBarSlider").GetComponent<Slider>();
+        _HPBar = transform.Find("EnemyHPBarSlider").GetComponent<Slider>();
         _HPBar.maxValue = enemyHP;
         _HPBar.value = enemyHP;
-		Debug.Log("Child is: " + _HPBar.name);
+        Debug.Log("Child is: " + _HPBar.name);
 
         escape = false;
     }
@@ -62,6 +71,14 @@ public class Enemy : MonoBehaviour
             //衝突していなかったら
             if (flg == 0)
             {
+                walk = true;
+                //timeElapsed += Time.deltaTime;
+                //if (timeElapsed >= timeOut)
+                //{
+                //    // Do anything
+                //    walkSe.PlayOneShot(walkSe.clip);
+                //    timeElapsed = 0.0f;
+                //}
                 //プレイヤーに追従する処理
                 this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z), 0.3f * Time.deltaTime);
                 //Debug.Log ("target : " + target.transform.position);
@@ -69,6 +86,7 @@ public class Enemy : MonoBehaviour
             //衝突したら
             if (flg == 1)
             {
+                walk = false;
                 //ノックバックさせる
                 float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
                 float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
@@ -132,18 +150,20 @@ public class Enemy : MonoBehaviour
             //フラグを1にする
             flg = 1;
 
-			Player.PlayerDamaged (Const.ENEMY_ATK);
+            Player.PlayerDamaged(Const.ENEMY_ATK);
 
             //0.5秒後にフラグを2にする
-            Invoke("flgChange",0.1f);
+            Invoke("flgChange", 0.1f);
         }
-		// tagがballなら
-		if (other.gameObject.tag == "ball") {
+        // tagがballなら
+        if (other.gameObject.tag == "ball")
+        {
             anim.SetTrigger("damage");
-			Destroy (other.gameObject);
-			EnemyDamaged (Const.BALL_ATK[0]);
-			//Debug.Log ("test");
-		}
+            damageSe.PlayOneShot(damageSe.clip);
+            Destroy(other.gameObject);
+            EnemyDamaged(Const.BALL_ATK[0]);
+            //Debug.Log ("test");
+        }
     }
 
 
@@ -153,7 +173,7 @@ public class Enemy : MonoBehaviour
         //Debug.Log("stop!");
 
         //2秒後にflgを0
-        Invoke("flgChange2",2f);
+        Invoke("flgChange2", 2f);
     }
 
     //フラグをfalseにする
@@ -175,20 +195,22 @@ public class Enemy : MonoBehaviour
         flg = 0;
     }
 
-	float getField (int i){
-		switch(i){
-		case 0: // 画面上
-			return target.GetComponent<Player> ().fieldTop;
-		case 1: // 画面右
-			return target.GetComponent<Player> ().fieldRight;
-		case 2: // 画面左
-			return target.GetComponent<Player> ().fieldLeft;
-		case 3: // 画面下
-			return target.GetComponent<Player> ().fieldBottom;
-		default:
-			return 0;
-		}
-	}
+    float getField(int i)
+    {
+        switch (i)
+        {
+            case 0: // 画面上
+                return target.GetComponent<Player>().fieldTop;
+            case 1: // 画面右
+                return target.GetComponent<Player>().fieldRight;
+            case 2: // 画面左
+                return target.GetComponent<Player>().fieldLeft;
+            case 3: // 画面下
+                return target.GetComponent<Player>().fieldBottom;
+            default:
+                return 0;
+        }
+    }
 
     //--------------------------------------------------------//
     // アニメーションのstateメモ
@@ -272,11 +294,13 @@ public class Enemy : MonoBehaviour
     }
 
 
-	void EnemyDamaged(int damage){
-		setEnemyHP (enemyHP - damage);
-        if (enemyHP <= 0 && !isDead) {
-			GameManager.EnemyNum -= 1;
-			GameManager.clearCheck ();
+    void EnemyDamaged(int damage)
+    {
+        setEnemyHP(enemyHP - damage);
+        if (enemyHP <= 0 && !isDead)
+        {
+            GameManager.EnemyNum -= 1;
+            GameManager.clearCheck();
             escape = true;
             isDead = true;
             //this.transform.localScale = new Vector3(this.transform.localScale.x - 0.01f, this.transform.localScale.y - 0.01f);
@@ -287,14 +311,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
-	void EnemyHealed(int heal) {
-		int setHP = System.Math.Min (ENEMY_HP_MAX, enemyHP + heal);
-		setEnemyHP (setHP);
-	}
+    void EnemyHealed(int heal)
+    {
+        int setHP = System.Math.Min(ENEMY_HP_MAX, enemyHP + heal);
+        setEnemyHP(setHP);
+    }
 
-	void setEnemyHP(int HP){
-		enemyHP = HP;
+    void setEnemyHP(int HP)
+    {
+        enemyHP = HP;
         _HPBar.value = enemyHP;
-		//Debug.Log (enemyHP);
-	}
+        //Debug.Log (enemyHP);
+    }
 }

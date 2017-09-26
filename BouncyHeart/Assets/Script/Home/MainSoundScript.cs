@@ -6,9 +6,18 @@ public class MainSoundScript : MonoBehaviour
 {
     public bool DontDestroyEnabled = true;
 
+    private AudioSource clickSe;
+
+    int count = 0;
+    int timer = 0;
+    bool inBattle = false;
+
     // Use this for initialization
     void Start()
     {
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        clickSe = audioSource[1];
+
         if (DontDestroyEnabled)
         {
             // Sceneを遷移してもオブジェクトが消えないようにする
@@ -30,34 +39,34 @@ public class MainSoundScript : MonoBehaviour
             {
                 if (obj.tag == "HomeBotton")
                 {
+                    clickSe.PlayOneShot(clickSe.clip);
+
                     //クエスト選択
                     SceneManager.LoadScene("QuestSelect");
                 }
                 if(obj.tag == "QuestBotton")
                 {
-                    //
+                    clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene("Aria");
                 }
                 if (obj.tag == "AriaBotton")
                 {
-                    //
+                    clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene("Friend");
                 }
                 if (obj.tag == "FriendBotton")
                 {
-                    //
+                    clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene("Check");
                 }
                 if (obj.tag == "BattleBotton")
                 {
-                    //
-                    Destroy(this.gameObject);
-                    SceneManager.LoadScene("Game");
+                    inBattle = true;
                 }
 
                 if (obj.tag == "return")
                 {
-                    //
+                    clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene(currentSceneIndex - 1);
                     if(currentSceneIndex - 1 == 0)
                     {
@@ -65,6 +74,24 @@ public class MainSoundScript : MonoBehaviour
                     }
                 }
             }
+        }
+        if(inBattle)
+        {
+            count++;
+            if (count <= 20)
+            {
+                if (timer == 0)
+                {
+                    clickSe.PlayOneShot(clickSe.clip);
+                }
+                timer++;
+            }
+        if (count > 20)
+        {
+            Destroy(this.gameObject);
+            SceneManager.LoadScene("Game");
+        }
+
         }
     }
 

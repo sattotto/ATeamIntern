@@ -11,6 +11,8 @@ public class Skill : MonoBehaviour
     public GameObject ReadyPanelPrefab;
 
     private AudioSource skillUp;
+    private AudioSource readySe;
+
     public bool ready = false;
     GameObject Ready;
 
@@ -19,6 +21,8 @@ public class Skill : MonoBehaviour
     {
         AudioSource[] audioSource = GetComponents<AudioSource>();
         skillUp = audioSource[0];
+        readySe = audioSource[3];
+
     }
 
     // Update is called once per frame
@@ -52,6 +56,7 @@ public class Skill : MonoBehaviour
 
                                 if (!ready)
                                 {
+                                    readySe.PlayOneShot(readySe.clip);
                                     Ready = Instantiate(ReadyPanelPrefab, new Vector3(0, 0, 1), transform.rotation) as GameObject;
                                 }
                                 ready = true;

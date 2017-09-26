@@ -36,6 +36,9 @@ public class Player : MonoBehaviour
     //Animator
     Animator anim;
 
+    private AudioSource shootSe;
+    private AudioSource walkSe;
+
     //アニメーション変更用変数
     int dir;
 
@@ -43,7 +46,10 @@ public class Player : MonoBehaviour
     bool push_tmp = false;
 
     private float nextTime;
-    public float interval = 0.0001f;	// 点滅周期
+    public float interval = 0.0001f;    // 点滅周期
+    private float sound_span = 0.5f;
+    private float wark_velocity = 15f ;
+
     // Use this for initialization
     void Start()
     {
@@ -53,6 +59,10 @@ public class Player : MonoBehaviour
 
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
+
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        shootSe = audioSource[4];
+        walkSe = audioSource[5];
 
         nextTime = Time.time;
 
@@ -118,6 +128,16 @@ public class Player : MonoBehaviour
             if (!isReload)
             {
                 //moveKeyboard();
+                //if (wark_velocity > 0)
+                //{ //移動中のみタイマー作動
+                //    sound_span -= Time.deltaTime; //タイマーのカウントダウン
+
+                //    if (sound_span <= 0)
+                //    {
+                //        walkSe.PlayOneShot(walkSe.clip); //足音を鳴らす
+                //        sound_span = 0.5f / (wark_velocity * 5f); //今の速度に合わせて次の音までの時間を決める
+                //    }
+                //}
                 moveTouch();
             }
             else
@@ -146,6 +166,7 @@ public class Player : MonoBehaviour
                 chargeGauge();
             }
             if (!push_tmp && push){
+                shootSe.PlayOneShot(shootSe.clip);
                 PushUp();
             }
             playerPos = transform.position;
@@ -182,18 +203,73 @@ public class Player : MonoBehaviour
         var x = CrossPlatformInputManager.GetAxis("Horizontal");
         var y = CrossPlatformInputManager.GetAxis("Vertical");
 		if (fieldLeft < transform.position.x && x < 0){
+            if (wark_velocity > 0)
+            { //移動中のみタイマー作動
+                sound_span -= Time.deltaTime; //タイマーのカウントダウン
+
+                if (sound_span <= 0)
+                {
+                    walkSe.PlayOneShot(walkSe.clip); //足音を鳴らす
+                    sound_span = 0.5f / (wark_velocity * 0.02f); //今の速度に合わせて次の音までの時間を決める
+                }
+            }
+
             transform.position += (Vector3.right * x) * Time.deltaTime;
 		}
         if (transform.position.x < fieldRight && x > 0){
+            if (wark_velocity > 0)
+            { //移動中のみタイマー作動
+                sound_span -= Time.deltaTime; //タイマーのカウントダウン
+
+                if (sound_span <= 0)
+                {
+                    walkSe.PlayOneShot(walkSe.clip); //足音を鳴らす
+                    sound_span = 0.5f / (wark_velocity * 0.02f); //今の速度に合わせて次の音までの時間を決める
+                }
+            }
+
             transform.position += (Vector3.right * x) * Time.deltaTime;
         }
         if (fieldBottom < transform.position.y && y < 0){
+            if (wark_velocity > 0)
+            { //移動中のみタイマー作動
+                sound_span -= Time.deltaTime; //タイマーのカウントダウン
+
+                if (sound_span <= 0)
+                {
+                    walkSe.PlayOneShot(walkSe.clip); //足音を鳴らす
+                    sound_span = 0.5f / (wark_velocity * 0.02f); //今の速度に合わせて次の音までの時間を決める
+                }
+            }
+
             transform.position += (Vector3.up * y) * Time.deltaTime;
         }
         if(transform.position.y < fieldTop && y > 0){
+            if (wark_velocity > 0)
+            { //移動中のみタイマー作動
+                sound_span -= Time.deltaTime; //タイマーのカウントダウン
+
+                if (sound_span <= 0)
+                {
+                    walkSe.PlayOneShot(walkSe.clip); //足音を鳴らす
+                    sound_span = 0.5f / (wark_velocity * 0.02f); //今の速度に合わせて次の音までの時間を決める
+                }
+            }
+
             transform.position += (Vector3.up * y) * Time.deltaTime;
         }
         if(x != 0 && y != 0){
+            if (wark_velocity > 0)
+            { //移動中のみタイマー作動
+                sound_span -= Time.deltaTime; //タイマーのカウントダウン
+
+                if (sound_span <= 0)
+                {
+                    walkSe.PlayOneShot(walkSe.clip); //足音を鳴らす
+                    sound_span = 0.5f / (wark_velocity * 0.02f); //今の速度に合わせて次の音までの時間を決める
+                }
+            }
+
             movePos = new Vector2(x, y);
         }
 
