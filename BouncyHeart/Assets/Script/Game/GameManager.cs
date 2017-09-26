@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 		//GameObject enemy = Instantiate (EnemyPrefab, enemypos, transform.rotation) as GameObject;
 		GameObject enemy = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X[i], enemypos.y + Const.ENEMY_POS_Y[i], enemypos.z), transform.rotation) as GameObject;
 		enemy.transform.parent = this.transform;
-		enemy.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+		enemy.transform.localScale = new Vector3(1f, 1f, 1f);
 	}
 
 	void playerSpawn(){
