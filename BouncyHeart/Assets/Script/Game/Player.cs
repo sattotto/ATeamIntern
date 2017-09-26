@@ -420,7 +420,7 @@ public class Player : MonoBehaviour
         angle *= Mathf.Rad2Deg;
         angle = (angle + 360.0f) % 360.0f;
 
-        Debug.Log(angle);
+//        Debug.Log(angle);
 
         //角度から向いている方向を判断し、アニメーションフラグを変更する
         if ((angle > 337.5f) || (angle < 22.5f))
@@ -514,7 +514,7 @@ public class Player : MonoBehaviour
         
         push = false;
         anim.SetTrigger("throw");
-        Debug.Log("push up! " + charge);
+//        Debug.Log("push up! " + charge);
         shoot();
         charge = 1;
 	}

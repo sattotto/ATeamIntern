@@ -158,6 +158,14 @@ public class Enemy : MonoBehaviour
         // tagがballなら
         if (other.gameObject.tag == "ball")
         {
+
+			// 体当たりしてきた敵とプレイヤーの座標からノックバックする方向を取得する
+			knockBackDirection = (this.transform.position - other.transform.position).normalized;
+			//フラグを1にする
+			flg = 1;
+			//0.5秒後にフラグを2にする
+			Invoke("flgChange", 0.1f);
+
             anim.SetTrigger("damage");
             damageSe.PlayOneShot(damageSe.clip);
             Destroy(other.gameObject);
