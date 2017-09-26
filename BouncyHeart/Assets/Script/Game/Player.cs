@@ -329,7 +329,7 @@ public class Player : MonoBehaviour
             //Instantiate (ballPrefab, transform.position, Quaternion.identity);
             // 弾を生成
             Vector3 PlayerPos = transform.position;
-            Vector3 ballPos = new Vector3(PlayerPos.x + vector.x / 3, PlayerPos.y + vector.y / 3, PlayerPos.z);
+            Vector3 ballPos = new Vector3(PlayerPos.x + vector.x / 2, PlayerPos.y + vector.y / 2, PlayerPos.z);
             GameObject shot = Instantiate(ballPrefab, ballPos, transform.rotation) as GameObject;
             // Shotスクリプトオブジェクトを取得
             BallController s = shot.GetComponent<BallController>();
