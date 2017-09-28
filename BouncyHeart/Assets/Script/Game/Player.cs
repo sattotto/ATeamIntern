@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
     Vector3 prevPos = new Vector3(0, 0, 0);
     Vector2 movePos;
     float rot;
-    float prevRot;
 
     public static float charge = 1f;
 
@@ -394,12 +393,6 @@ public class Player : MonoBehaviour
 
         if (rot > 180) rot -= 360;
         if (rot < -180) rot += 360;
-
-        if (prevRot != rot)
-        {
-            prevRot = rot;
-            prevPos = this.transform.position;
-        }
     }
 
     void flgChange()
