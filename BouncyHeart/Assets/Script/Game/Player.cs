@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     bool isReload = false;
     private bool isCall = false;
 
-    Vector2 movePos;
+    Vector2 movePos = new Vector2(0,1);
     float rot;
 
     public static float charge = 1f;
