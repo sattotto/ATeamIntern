@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	
-	public Text gameOverText;
+    public GameObject gameOverText;
 	public static bool gameOver = false;
 
 	public GameObject EnemyPrefab;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (gameOver) {
-			gameOverText.enabled = true;
+            gameOverText.SetActive(true);
 		}
 		if (isClear) {
 			Debug.Log ("game clear!");
