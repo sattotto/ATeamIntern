@@ -81,7 +81,7 @@ public class Reload : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            reloadBall[i] = Random.Range(0, 5);
+            reloadBall[i] = Random.Range(0, 4);
 
             Debug.Log(reloadBall[i]);
         }
