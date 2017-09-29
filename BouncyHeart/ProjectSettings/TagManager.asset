@@ -25,6 +25,8 @@ TagManager:
   - ResultOk
   - ResultReplay
   - returnHome
+  - none
+  - alert
   layers:
   - Default
   - TransparentFX
