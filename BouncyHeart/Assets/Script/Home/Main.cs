@@ -84,19 +84,29 @@ public class Main : MonoBehaviour {
                     switch (charaId)
                     {
                         case 0:
-                            kokonohaVoice.PlayOneShot(kokonohaVoice.clip);
+                            if  (!kokonohaVoice.isPlaying){
+                                kokonohaVoice.PlayOneShot(kokonohaVoice.clip);
+                            }
                             break;
                         case 1:
-                            fulostVoice.PlayOneShot(fulostVoice.clip);
+                            if (!fulostVoice.isPlaying){
+                                fulostVoice.PlayOneShot(fulostVoice.clip);
+                            }
                             break;
                         case 2:
-                            milkyVoice.PlayOneShot(milkyVoice.clip);
+                            if (!milkyVoice.isPlaying){
+                                milkyVoice.PlayOneShot(milkyVoice.clip);
+                            }
                             break;
                         case 3:
-                            kingVoice.PlayOneShot(kingVoice.clip);
+                            if (!kingVoice.isPlaying){
+                                kingVoice.PlayOneShot(kingVoice.clip);
+                            }
                             break;
                         case 4:
-                            aiVoice.PlayOneShot(aiVoice.clip);
+                            if (!aiVoice.isPlaying){
+                                aiVoice.PlayOneShot(aiVoice.clip);
+                            }
                             break;
                         default:
                             aiVoice.PlayOneShot(aiVoice.clip);

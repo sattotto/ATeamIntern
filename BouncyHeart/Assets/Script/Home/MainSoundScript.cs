@@ -73,6 +73,15 @@ public class MainSoundScript : MonoBehaviour
                         Destroy(this.gameObject);
                     }
                 }
+
+				if (obj.tag == "returnHome")
+				{
+					clickSe.PlayOneShot(clickSe.clip);
+
+                    //Homeへ
+                    SceneManager.LoadScene(1);
+					Destroy(this.gameObject);
+				}
             }
         }
         if(inBattle)

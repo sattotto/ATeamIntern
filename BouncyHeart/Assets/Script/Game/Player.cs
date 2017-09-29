@@ -23,10 +23,8 @@ public class Player : MonoBehaviour
     bool isReload = false;
     private bool isCall = false;
 
-    Vector3 prevPos = new Vector3(0, 0, 0);
-    Vector2 movePos;
+    Vector2 movePos = new Vector2(0,1);
     float rot;
-    float prevRot;
 
     public static float charge = 1f;
 
@@ -376,17 +374,6 @@ public class Player : MonoBehaviour
 
     void checkPlayerRotation()
     {
-        float x = this.transform.position.x - prevPos.x;
-        float y = this.transform.position.y - prevPos.y;
-
-        Vector2 vec = new Vector2(x, y).normalized;
-
-        float xx = prevPos.x - this.transform.position.x;
-        float yy = prevPos.y - this.transform.position.y;
-        Vector2 move_vec = new Vector2(xx, yy).normalized;
-
-        Debug.Log(move_vec);
-
         //アニメーション用
         MoveAngle(movePos);
         //Debug.Log("move_vec = " + move_vec + ": prevMoveVec = " + movePos);
@@ -394,12 +381,6 @@ public class Player : MonoBehaviour
 
         if (rot > 180) rot -= 360;
         if (rot < -180) rot += 360;
-
-        if (prevRot != rot)
-        {
-            prevRot = rot;
-            prevPos = this.transform.position;
-        }
     }
 
     void flgChange()
