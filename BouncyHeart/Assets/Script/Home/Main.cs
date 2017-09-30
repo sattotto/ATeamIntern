@@ -6,6 +6,8 @@ public class Main : MonoBehaviour {
 
     int charaId;
 
+    bool isCall = false;
+
     //描画用
     GameObject[] Chara;
 
@@ -36,28 +38,8 @@ public class Main : MonoBehaviour {
         charaId = Random.Range(0, 5);
         //charaId = 4;
         Debug.Log(charaId);
-        switch (charaId)
-        {
-            case 0:
-                CharaSpriteRenderer.sprite = Kokonoha;
-                break;
-            case 1:
-                CharaSpriteRenderer.sprite = Fulost;
-                break;
-            case 2:
-                CharaSpriteRenderer.sprite = Milky;
-                break;
-            case 3:
-                CharaSpriteRenderer.sprite = King;
-                break;
-            case 4:
-                CharaSpriteRenderer.sprite = Ai;
-                break;
-            default:
-                CharaSpriteRenderer.sprite = Ai;
-                break;
 
-        }
+        imageChange(charaId);
 
         AudioSource[] audioSource = GetComponents<AudioSource>();
         kokonohaVoice = audioSource[0];
@@ -117,6 +99,15 @@ public class Main : MonoBehaviour {
                 }
             }
         }
+        if (!isCall){
+            if (charaId < 5){
+                charaId += 1;
+            } else {
+                charaId = 0;
+            }
+            StartCoroutine("change");
+            isCall = true;
+        }
     }
     private GameObject getClickObject()
     {
@@ -133,5 +124,37 @@ public class Main : MonoBehaviour {
         }
         return result;
     }
+
+    void imageChange(int id){
+		switch (id)
+		{
+			case 0:
+				CharaSpriteRenderer.sprite = Kokonoha;
+				break;
+			case 1:
+				CharaSpriteRenderer.sprite = Fulost;
+				break;
+			case 2:
+				CharaSpriteRenderer.sprite = Milky;
+				break;
+			case 3:
+				CharaSpriteRenderer.sprite = King;
+				break;
+			case 4:
+				CharaSpriteRenderer.sprite = Ai;
+				break;
+			default:
+				CharaSpriteRenderer.sprite = Ai;
+				break;
+
+		}
+    }
+
+	IEnumerator change(){
+		yield return new WaitForSeconds(5f);
+
+		imageChange(charaId);
+        isCall = false;
+	}
 
 }
