@@ -8,9 +8,14 @@ public class MainSoundScript : MonoBehaviour
 
     private AudioSource clickSe;
 
+    public GameObject AlertPanel;
+    GameObject panel;
+
     int count = 0;
     int timer = 0;
     bool inBattle = false;
+    public static bool showAlert = false;
+    bool isDisplayDelay = false;
 
     // Use this for initialization
     void Start()
@@ -35,7 +40,7 @@ public class MainSoundScript : MonoBehaviour
             Debug.Log("クリック");
             //クリックして、オブジェクトがあったら
             GameObject obj = getClickObject();
-            if (obj != null)
+            if (obj != null && !showAlert)
             {
                 if (obj.tag == "HomeBotton")
                 {
@@ -44,7 +49,7 @@ public class MainSoundScript : MonoBehaviour
                     //クエスト選択
                     SceneManager.LoadScene("QuestSelect");
                 }
-                if(obj.tag == "QuestBotton")
+                if (obj.tag == "QuestBotton")
                 {
                     clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene("Aria");
@@ -68,20 +73,38 @@ public class MainSoundScript : MonoBehaviour
                 {
                     clickSe.PlayOneShot(clickSe.clip);
                     SceneManager.LoadScene(currentSceneIndex - 1);
-                    if(currentSceneIndex - 1 == 1)
+                    if (currentSceneIndex - 1 == 1)
                     {
                         Destroy(this.gameObject);
                     }
                 }
 
-				if (obj.tag == "returnHome")
-				{
-					clickSe.PlayOneShot(clickSe.clip);
+                if (obj.tag == "returnHome")
+                {
+                    clickSe.PlayOneShot(clickSe.clip);
 
                     //Homeへ
                     SceneManager.LoadScene(1);
-					Destroy(this.gameObject);
-				}
+                    Destroy(this.gameObject);
+                }
+                if (obj.tag == "none")
+                {
+                    clickSe.PlayOneShot(clickSe.clip);
+                    panel = Instantiate(AlertPanel, new Vector3(0, 0, 0), transform.rotation) as GameObject;
+                    // カメラオブジェクトを取得します
+                    GameObject _mainCamera = GameObject.Find("Main Camera");
+                    GameObject.Find("Alert(Clone)").GetComponent<Canvas>().worldCamera = _mainCamera.GetComponent<Camera>();
+                    Invoke("flgChange", 0.3f);
+                    showAlert = true;
+                }
+            } else {
+                if (showAlert && isDisplayDelay){
+					clickSe.PlayOneShot(clickSe.clip);
+					Destroy(panel.gameObject);
+					//showAlert = false;
+                    Invoke("alertFlg", 0.3f);
+                    isDisplayDelay = false;
+                }
             }
         }
         if(inBattle)
@@ -121,5 +144,10 @@ public class MainSoundScript : MonoBehaviour
         }
         return result;
     }
-
+    void flgChange(){
+        isDisplayDelay = !isDisplayDelay;
+    }
+    void alertFlg(){
+        showAlert = false;
+    }
 }
