@@ -7,13 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	
-	public Text gameOverText;
+    public GameObject gameOverText;
 	public static bool gameOver = false;
 
 	public GameObject EnemyPrefab;
 	public GameObject PlayerPrefab;
 
     private GameObject player;
+    private GameObject[] enemy = new GameObject[16];
 
 	public static int EnemyNum;
 	public static bool isClear = false;
@@ -29,11 +30,16 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (gameOver) {
-			gameOverText.enabled = true;
+            gameOverText.SetActive(true);
+            Destroy(player.gameObject);
+            for (int i = 0; i < Const.ENEMY_NUM[0];i++){
+                Destroy(enemy[i]);
+            }
 		}
 		if (isClear) {
 			Debug.Log ("game clear!");
             Destroy(player);
+
             SceneManager.LoadScene("Result");
         }
 	}
@@ -55,9 +61,9 @@ public class GameManager : MonoBehaviour {
 	void enemySpawn(Vector3 enemypos, int i){
 
 		//GameObject enemy = Instantiate (EnemyPrefab, enemypos, transform.rotation) as GameObject;
-		GameObject enemy = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X[i], enemypos.y + Const.ENEMY_POS_Y[i], enemypos.z), transform.rotation) as GameObject;
-		enemy.transform.parent = this.transform;
-		enemy.transform.localScale = new Vector3(1f, 1f, 1f);
+        enemy[i] = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X[i], enemypos.y + Const.ENEMY_POS_Y[i], enemypos.z), transform.rotation) as GameObject;
+        enemy[i].transform.parent = this.transform;
+        enemy[i].transform.localScale = new Vector3(1f, 1f, 1f);
 	}
 
 	void playerSpawn(){

@@ -77,7 +77,7 @@ public class Main : MonoBehaviour {
         {
             //クリックして、オブジェクトがあったら
             GameObject obj = getClickObject();
-            if (obj != null)
+            if (obj != null && !MainSoundScript.showAlert)
             {
                 if (obj.tag == "Charactor")
                 {
