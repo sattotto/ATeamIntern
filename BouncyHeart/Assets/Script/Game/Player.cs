@@ -508,6 +508,8 @@ public class Player : MonoBehaviour
     public void chargeGauge(){
         if (charge < 2f){
             charge += 0.01f;
+        } else {
+            charge = 1.0f;
         }
     }
 }
