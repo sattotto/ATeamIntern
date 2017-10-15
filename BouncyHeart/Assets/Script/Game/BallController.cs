@@ -18,7 +18,7 @@ public class BallController : MonoBehaviour {
 	}
 
 	public void ballType(int type, float charge, float playerDeg){
-		if (type == 0){
+		if (type == 0 || type == 4){
 			// o型
 			circleSet(2f*charge,1f,playerDeg);
 		} else {
