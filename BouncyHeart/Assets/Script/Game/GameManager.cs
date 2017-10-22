@@ -52,7 +52,10 @@ public class GameManager : MonoBehaviour {
                 enemySpawn(Const.ENEMY_POS, i);
             }
         } else if (stageNum == 1) {
-            
+            for (int i = 0; i < Const.ENEMY_NUM[1]; i++)
+            {
+                enemySpawn2(Const.ENEMY_POS, i);
+            }
         }
         playerSpawn();
 	}
@@ -65,12 +68,14 @@ public class GameManager : MonoBehaviour {
     }
 
 	void enemySpawn(Vector3 enemypos, int i){
-
-		//GameObject enemy = Instantiate (EnemyPrefab, enemypos, transform.rotation) as GameObject;
-        enemy[i] = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X[i], enemypos.y + Const.ENEMY_POS_Y[i], enemypos.z), transform.rotation) as GameObject;
+        enemy[i] = Instantiate (EnemyPrefab, new Vector3(enemypos.x + Const.ENEMY_POS_X0[i], enemypos.y + Const.ENEMY_POS_Y0[i], enemypos.z), transform.rotation) as GameObject;
         enemy[i].transform.parent = this.transform;
         enemy[i].transform.localScale = new Vector3(1f, 1f, 1f);
 	}
+
+    void enemySpawn2(Vector3 enemypos, int i){
+        
+    }
 
 	void playerSpawn(){
 		Vector3 playerpos = new Vector3 (0, 0, 0);

@@ -24,13 +24,20 @@ public class Const : MonoBehaviour {
 	// 持ち玉数
 	public static int SHOOT_NUM = 5;
 
-	// 基準となる位置
-	public static Vector3 ENEMY_POS = new Vector3 (0, 4, 0);
+    // index: 現在のステージ
+    // 中身: ステージでの出現敵数
+    public static int[] ENEMY_NUM = { 2, 2 };
 
-	// index: 現在のステージ
-	// 中身: ステージでの出現敵数
-	public static int[] ENEMY_NUM = { 2 };
-	// ステージごとの敵の位置
-	public static float[] ENEMY_POS_X = { -1, 1 };
-	public static float[] ENEMY_POS_Y = { 0, 0 };
+    // 基準となる位置
+    public static Vector3 ENEMY_POS = new Vector3(0, 4, 0);
+
+    // ステージごとの敵の位置
+    // ----- stage1 ----- //
+	public static float[] ENEMY_POS_X0 = { -1, 1 };
+	public static float[] ENEMY_POS_Y0 = { 0, 0 };
+
+    // ----- stage2 ----- //
+    public static float[] ENEMY_POS_X1 = { -1, 1 };
+    public static float[] ENEMY_POS_Y1 = { 0, 0 };
+
 }
