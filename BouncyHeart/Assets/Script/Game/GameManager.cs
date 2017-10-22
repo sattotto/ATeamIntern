@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject EnemyPrefab;
 	public GameObject PlayerPrefab;
 
+    public int stageNum;
+
     private GameObject player;
     private GameObject[] enemy = new GameObject[16];
 
@@ -45,9 +47,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void gameStart(){
-		for (int i = 0; i < Const.ENEMY_NUM [0]; i++) {
-			enemySpawn (Const.ENEMY_POS, i);
-		}
+        if(stageNum == 0){
+            for (int i = 0; i < Const.ENEMY_NUM[0]; i++) {
+                enemySpawn(Const.ENEMY_POS, i);
+            }
+        } else if (stageNum == 1) {
+            
+        }
         playerSpawn();
 	}
 

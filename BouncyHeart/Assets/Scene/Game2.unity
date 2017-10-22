@@ -786,6 +786,7 @@ MonoBehaviour:
     type: 2}
   PlayerPrefab: {fileID: 1128745599228216, guid: a4ec6a91f6465492687ca97a7fccd295,
     type: 2}
+  stageNum: 1
 --- !u!1 &121066213
 GameObject:
   m_ObjectHideFlags: 0
