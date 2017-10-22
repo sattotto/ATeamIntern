@@ -318,13 +318,7 @@ public class Enemy : MonoBehaviour
             //}
         }
     }
-
-    void EnemyHealed(int heal)
-    {
-        int setHP = System.Math.Min(ENEMY_HP_MAX, enemyHP + heal);
-        setEnemyHP(setHP);
-    }
-
+    
     void setEnemyHP(int HP)
     {
         enemyHP = HP;
