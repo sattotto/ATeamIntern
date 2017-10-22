@@ -102,4 +102,19 @@ public class BallController : MonoBehaviour {
 			yield return null;
 		}
 	}
+
+	// ----- 敵の攻撃 ----- //
+	/// <summary>
+	/// 弾幕型の敵の攻撃
+	/// </summary>
+	/// <param name="enemyPos">敵のポジション</param>
+	/// <param name="enemyDeg">敵の45度毎の向き</param>
+	public void enemyShoot(Vector3 enemyPos, float enemyDeg){
+		Vector3 v;
+		v.x = Mathf.Cos (Mathf.Deg2Rad * enemyDeg) * speed;
+		v.y = Mathf.Sin (Mathf.Deg2Rad * enemyDeg) * speed;
+		v.z = 0;
+		RigidBody.velocity = v;
+		Destroy (this.gameObject, 1f);
+	}
 }
