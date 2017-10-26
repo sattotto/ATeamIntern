@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class Enemy2 : MonoBehaviour {
 
 	public GameObject enemyBallPrefab;
+    public GameObject target;
+
+    public int flg = 0;
+    Vector3 knockBackDirection = new Vector3(0, 0, 0);
+    public Vector3 tmp;
 
 	public int ENEMY_HP_MAX = Const.ENEMY_HP;
     public int enemyHP;
@@ -40,10 +45,42 @@ public class Enemy2 : MonoBehaviour {
             timeElapsed = 0.0f;
             shoot();
         }
+
+        playerContact();
 	}
 
-	void EnemyDamaged(int damage)
+    private void OnTriggerEnter(Collider other)
     {
+        //tagがplayerなら
+        if (other.gameObject.tag == "player") {
+            // 体当たりしてきた敵とプレイヤーの座標からノックバックする方向を取得する
+            knockBackDirection = (this.transform.position - other.transform.position).normalized;
+
+            //フラグを1にする
+            flg = 1;
+
+            Player.PlayerDamaged(Const.ENEMY_ATK);
+
+            //0.5秒後にフラグを2にする
+            Invoke("flgChange", 0.1f);
+        }
+        // tagがballなら
+        if (other.gameObject.tag == "ball") {
+
+			// 体当たりしてきた敵とプレイヤーの座標からノックバックする方向を取得する
+			knockBackDirection = (this.transform.position - other.transform.position).normalized;
+			//フラグを1にする
+			flg = 1;
+			//0.5秒後にフラグを2にする
+			Invoke("flgChange", 0.1f);
+
+            Destroy(other.gameObject);
+            EnemyDamaged(Const.BALL_ATK[0]);
+            //Debug.Log ("test");
+        }
+    }
+
+	void EnemyDamaged(int damage) {
         setEnemyHP(enemyHP - damage);
         if (enemyHP <= 0 && !isDead)
         {
@@ -51,6 +88,7 @@ public class Enemy2 : MonoBehaviour {
             GameManager.clearCheck();
             escape = true;
             isDead = true;
+            Destroy(this.gameObject);
         }
     }
     
@@ -75,4 +113,47 @@ public class Enemy2 : MonoBehaviour {
             Debug.Log(i + ": Mathf.Cos(Mathf.PI/4*i) = " + Mathf.Cos(Mathf.PI/4*i) + " : Mathf.Sin(Mathf.PI/4*i) = " + Mathf.Sin(Mathf.PI/4*i));
         }
 	}
+
+    void playerContact(){
+        //衝突したら
+        float knockBackSpeed = 0.15f;
+        if (flg == 1){
+            //ノックバックさせる
+            float dx = transform.position.x + (knockBackSpeed * knockBackDirection.x);
+            float dy = transform.position.y + (knockBackSpeed * knockBackDirection.y);
+            // Field内に移動しているかのチェック
+            if (dx < getField(2)) {
+                dx = getField(2);
+            } else if (dx > getField(1)) {
+                dx = getField(1);
+            }
+            if (dy > getField(0)) {
+                dy = getField(0);
+            } else if (dy < getField(3)) {
+                dy = getField(3);
+            }
+
+            transform.position = new Vector3(dx, dy, transform.position.z);
+        } else if (flg == 2) {
+            transform.position = tmp;
+        }
+    }
+
+    float getField(int i)
+    {
+        switch (i)
+        {
+            case 0: // 画面上
+                return target.GetComponent<Player>().fieldTop;
+            case 1: // 画面右
+                return target.GetComponent<Player>().fieldRight;
+            case 2: // 画面左
+                return target.GetComponent<Player>().fieldLeft;
+            case 3: // 画面下
+                return target.GetComponent<Player>().fieldBottom;
+            default:
+                return 0;
+        }
+    }
+    
 }
