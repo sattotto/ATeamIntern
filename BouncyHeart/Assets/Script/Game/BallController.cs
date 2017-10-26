@@ -109,7 +109,8 @@ public class BallController : MonoBehaviour {
 	/// </summary>
 	/// <param name="enemyPos">敵のポジション</param>
 	/// <param name="enemyDeg">敵の45度毎の向き</param>
-	public void enemyShoot(Vector3 enemyPos, float enemyDeg){
+	/// <param name="speed">弾の速さ</param>
+	public void enemyShoot(Vector3 enemyPos, float enemyDeg, float speed){
 		Vector3 v;
 		v.x = Mathf.Cos (Mathf.Deg2Rad * enemyDeg) * speed;
 		v.y = Mathf.Sin (Mathf.Deg2Rad * enemyDeg) * speed;

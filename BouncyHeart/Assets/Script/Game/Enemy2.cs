@@ -13,6 +13,10 @@ public class Enemy2 : MonoBehaviour {
 	bool isDead = false;
 	bool escape = false;
 
+    // ball発射の周期
+    public float timeOut = 5f;
+    private float timeElapsed;
+
 	private Slider _HPBar;
 
 	// Use this for initialization
@@ -29,7 +33,14 @@ public class Enemy2 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Invoke("shoot", 2f);
+        timeElapsed += Time.deltaTime;
+
+        if(timeElapsed >= timeOut) {
+            // Do anything
+
+            timeElapsed = 0.0f;
+            Invoke("shoot", 2f);
+        }
 	}
 
 	void EnemyDamaged(int damage)
@@ -52,13 +63,14 @@ public class Enemy2 : MonoBehaviour {
     }
 
 	void shoot(){
-		Vector3 PlayerPos = transform.position;
 		Vector3 enemyPos = transform.position;
 
-		Vector3 ballPos = new Vector3(PlayerPos.x + enemyPos.x/2f, PlayerPos.y + enemyPos.y/2f, PlayerPos.z);;
+		Vector3 ballPos = new Vector3(enemyPos.x + enemyPos.x/2f, enemyPos.y + enemyPos.y/2f, enemyPos.z);;
         GameObject shot = Instantiate(enemyBallPrefab, ballPos, transform.rotation) as GameObject;
+        shot.transform.localScale = new Vector3(1f, 1f, 1f);
         // Shotスクリプトオブジェクトを取得
         BallController s = shot.GetComponent<BallController>();
+        s.enemyShoot(enemyPos, 90f, 2f);
 		//s.ChangeSprite();
 	}
 }
