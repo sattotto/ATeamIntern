@@ -14,7 +14,7 @@ public class Enemy2 : MonoBehaviour {
 	bool escape = false;
 
     // ball発射の周期
-    public float timeOut = 5f;
+    public float timeOut = 2f;
     private float timeElapsed;
 
 	private Slider _HPBar;
@@ -37,9 +37,8 @@ public class Enemy2 : MonoBehaviour {
 
         if(timeElapsed >= timeOut) {
             // Do anything
-
             timeElapsed = 0.0f;
-            Invoke("shoot", 2f);
+            shoot();
         }
 	}
 
@@ -65,12 +64,15 @@ public class Enemy2 : MonoBehaviour {
 	void shoot(){
 		Vector3 enemyPos = transform.position;
 
-		Vector3 ballPos = new Vector3(enemyPos.x + enemyPos.x/2f, enemyPos.y + enemyPos.y/2f, enemyPos.z);;
-        GameObject shot = Instantiate(enemyBallPrefab, ballPos, transform.rotation) as GameObject;
-        shot.transform.localScale = new Vector3(1f, 1f, 1f);
-        // Shotスクリプトオブジェクトを取得
-        BallController s = shot.GetComponent<BallController>();
-        s.enemyShoot(enemyPos, 90f, 2f);
-		//s.ChangeSprite();
+        for (int i = 0;i < 8;i++){
+            Vector3 ballPos = new Vector3(enemyPos.x+Mathf.Cos(Mathf.PI/4*i)*2/3, enemyPos.y+Mathf.Sin(Mathf.PI/4*i)*2/3, enemyPos.z);;
+            GameObject shot = Instantiate(enemyBallPrefab, ballPos, transform.rotation) as GameObject;
+            shot.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+            // Shotスクリプトオブジェクトを取得
+            BallController s = shot.GetComponent<BallController>();
+            s.enemyShoot(enemyPos, 45f*i, 2f);
+		    //s.ChangeSprite();
+            Debug.Log(i + ": Mathf.Cos(Mathf.PI/4*i) = " + Mathf.Cos(Mathf.PI/4*i) + " : Mathf.Sin(Mathf.PI/4*i) = " + Mathf.Sin(Mathf.PI/4*i));
+        }
 	}
 }
