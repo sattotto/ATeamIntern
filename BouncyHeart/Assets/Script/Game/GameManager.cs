@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	public static bool gameOver = false;
 
 	public GameObject EnemyPrefab;
+    public GameObject EnemyPrefab2;
 	public GameObject PlayerPrefab;
 
     public int stageNum;
@@ -74,7 +75,9 @@ public class GameManager : MonoBehaviour {
 	}
 
     void enemySpawn2(Vector3 enemypos, int i){
-        
+        enemy[i] = Instantiate (EnemyPrefab2, new Vector3(enemypos.x + Const.ENEMY_POS_X1[i], enemypos.y + Const.ENEMY_POS_Y1[i], enemypos.z), transform.rotation) as GameObject;
+        enemy[i].transform.parent = this.transform;
+        enemy[i].transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
 	void playerSpawn(){
