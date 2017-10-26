@@ -200,6 +200,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other) {
+        // tagがballなら
+        if (other.gameObject.tag == "enemyBall")
+        {
+            // anim.SetTrigger("damage");
+
+            Destroy(other.gameObject);
+            PlayerDamaged(Const.ENEMY_ATK);
+            //Debug.Log ("test");
+        }
+    }
+
     void moveTouch(){
         
         var x = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -274,8 +286,6 @@ public class Player : MonoBehaviour
 
             movePos = new Vector2(x, y);
         }
-
-
     }
 
     private Vector3 getScreenTopLeft()
