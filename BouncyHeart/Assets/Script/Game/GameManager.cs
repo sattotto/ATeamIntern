@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour {
             {
                 enemySpawn2(Const.ENEMY_POS, i);
             }
+            enemySpawn(new Vector3(0,2.5f,0), 0);
         }
         playerSpawn();
 	}
